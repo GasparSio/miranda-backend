@@ -1,9 +1,12 @@
-import { Request, Response, NextFunction } from 'express';
+import { authService } from '../services/loginServices';
+import { NextFunction, Request, Response } from 'express'
 
-export function authMiddleware(req: Request, res: Response, next: NextFunction){
-    const userAgent: string = req.get('User-Agent') || '';
-    if(!userAgent.includes('Chrome'))
-        return res.status(400).json({error: true, message: 'You need to use Firefox'})
-        next()
-    return;
+export function authMiddleware(req: Request, res: Response, next: NextFunction) {
+    let token = req.get('token') || '';
+    try {
+        authService.verifyJWT(token)
+        return next();
+    } catch (error) {
+        return res.status(401).json('Error: Incorrect Token')
+    }
 }

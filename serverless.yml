@@ -10,8 +10,8 @@ provider:
   name: aws
   region: eu-west-1
   environment:
-    SECRET: ${file(.env.json):AWS_ACCESS_KEY_ID}
-    MONGO_URL: ${file(.env.json):AWS_SECRET_ACCESS_KEY}
+    SECRET: ${file(.env.json):SECRET_KEY}
+    MONGO_URL: ${file(.env.json):MONGO_URL}
   runtime: nodejs18.x
 functions:
   app:

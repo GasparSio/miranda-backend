@@ -48,9 +48,6 @@ async function updateOneRoom(roomId: string, update: Partial<roomsInterface>) {
 	return result
 }
 
-
-
-
 export const roomsServices = {
     fetchAll,
     fetchOne,
