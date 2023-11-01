@@ -1,0 +1,27 @@
+service: backend-miranda-node
+frameworkVersion: "3"
+package:
+  patterns:
+    - "!./**"
+    - "package.json"
+    - "node_modules/**"
+    - "dist/**"
+provider:
+  name: aws
+  region: eu-west-1
+  environment:
+    SECRET: ${file(.env.json):AWS_ACCESS_KEY_ID}
+    MONGO_URL: ${file(.env.json):AWS_SECRET_ACCESS_KEY}
+  runtime: nodejs18.x
+functions:
+  app:
+    handler: dist/lambda.handler
+    events:
+      - http:
+          path: /
+          method: ANY
+          cors: true
+      - http:
+          path: /{proxy+}
+          method: ANY
+          cors: true
