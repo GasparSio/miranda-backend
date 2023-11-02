@@ -1,17 +1,10 @@
 service: backend-miranda-node
 frameworkVersion: "3"
-package:
-  patterns:
-    - "!./**"
-    - "package.json"
-    - "node_modules/**"
-    - "dist/**"
 provider:
   name: aws
   region: eu-west-1
   environment:
-    SECRET: ${file(.env.json):SECRET_KEY}
-    MONGO_URL: ${file(.env.json):MONGO_URL}
+    SECRET_KEY: ${file(.env.json):SECRET_KEY}
   runtime: nodejs18.x
 functions:
   app:
@@ -20,8 +13,6 @@ functions:
       - http:
           path: /
           method: ANY
-          cors: true
       - http:
           path: /{proxy+}
           method: ANY
-          cors: true
