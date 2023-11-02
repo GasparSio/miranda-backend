@@ -1,0 +1,20 @@
+[
+    {
+        "name": "Hotel Miranda Dashboard",
+        "description": "This is the Miranda Dashboard API. As you can see, there are different routes and methods you are able to use with this API.",
+        "public_routes": {
+            "/": "GET",
+            "/login": "POST"
+        },
+        "private_routes": {
+            "/bookings": "GET, POST ",
+            "/bookings/id": "GET, PUT, DELETE",
+            "/contact": "GET, POST ",
+            "/contact/id": "GET, PUT, DELETE",
+            "/rooms": "GET, POST ",
+            "/rooms/id": "GET, PUT, DELETE",
+            "/users": "GET, POST ",
+            "/users/id": "GET, PUT, DELETE"
+        }
+    }
+]

@@ -1,12 +1,12 @@
 import express, { Request, Response, NextFunction } from 'express';
 import cors from "cors";
-import { usersController } from './src/controllers/usersController';
-import { contactsController } from './src/controllers/contactsController';
-import { roomsController } from './src/controllers/roomsController';
-import { bookingsController } from './src/controllers/bookingsController';
-import { infoController } from './src/controllers/infoController';
-import { loginController } from './src/controllers/loginController';
-import { authMiddleware } from './src/middleware/authMiddleware';
+import { usersController } from './controllers/usersController';
+import { contactsController } from './controllers/contactsController';
+import { roomsController } from './controllers/roomsController';
+import { bookingsController } from './controllers/bookingsController';
+import { infoController } from './controllers/infoController';
+import { loginController } from './controllers/loginController';
+import { authMiddleware } from './middleware/authMiddleware';
 
 export const app = express();
 
