@@ -13,16 +13,13 @@ exports.bookingsServices = void 0;
 const bookingsModel_1 = require("../models/bookingsModel");
 function fetchAll() {
     return __awaiter(this, void 0, void 0, function* () {
-        const bookingsResult = yield bookingsModel_1.bookings.find();
-        if (bookingsResult.length === 0) {
-            throw new Error("Error on finding bookings");
-        }
+        const bookingsResult = yield bookingsModel_1.Booking.find();
         return bookingsResult;
     });
 }
 function fetchOne(bookingId) {
     return __awaiter(this, void 0, void 0, function* () {
-        const bookingResult = yield bookingsModel_1.bookings.findById(bookingId);
+        const bookingResult = yield bookingsModel_1.Booking.findById(bookingId);
         if (!bookingResult) {
             throw new Error("Error on finding a booking with this ID");
         }
@@ -31,7 +28,7 @@ function fetchOne(bookingId) {
 }
 function deleteBooking(bookingId) {
     return __awaiter(this, void 0, void 0, function* () {
-        const bookingsResult = yield bookingsModel_1.bookings.findByIdAndDelete(bookingId);
+        const bookingsResult = yield bookingsModel_1.Booking.findByIdAndDelete(bookingId);
         if (!bookingsResult) {
             throw new Error("Error on finding a booking with this ID");
         }
@@ -40,7 +37,7 @@ function deleteBooking(bookingId) {
 }
 function updateOneBooking(bookingId, update) {
     return __awaiter(this, void 0, void 0, function* () {
-        const bookingsResult = yield bookingsModel_1.bookings.findByIdAndUpdate(bookingId, update);
+        const bookingsResult = yield bookingsModel_1.Booking.findByIdAndUpdate(bookingId, update);
         if (!bookingsResult) {
             throw new Error('Booking not found');
         }
@@ -49,7 +46,7 @@ function updateOneBooking(bookingId, update) {
 }
 function createOneBooking(booking) {
     return __awaiter(this, void 0, void 0, function* () {
-        const bookingResult = yield bookingsModel_1.bookings.create(booking);
+        const bookingResult = yield bookingsModel_1.Booking.create(booking);
         if (!bookingResult) {
             throw new Error('Error creating a new Booking');
         }

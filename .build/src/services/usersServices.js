@@ -13,16 +13,13 @@ exports.usersServices = void 0;
 const usersModel_1 = require("../models/usersModel");
 function fetchAll() {
     return __awaiter(this, void 0, void 0, function* () {
-        const usersResult = yield usersModel_1.users.find();
-        if (usersResult.length === 0) {
-            throw new Error("Error on finding users");
-        }
+        const usersResult = yield usersModel_1.User.find();
         return usersResult;
     });
 }
 function fetchOne(userId) {
     return __awaiter(this, void 0, void 0, function* () {
-        const userResult = yield usersModel_1.users.findById(userId);
+        const userResult = yield usersModel_1.User.findById(userId);
         if (!userResult) {
             throw new Error("Error on finding users with this ID");
         }
@@ -31,7 +28,7 @@ function fetchOne(userId) {
 }
 function deleteUser(userId) {
     return __awaiter(this, void 0, void 0, function* () {
-        const userResult = yield usersModel_1.users.findByIdAndDelete(userId);
+        const userResult = yield usersModel_1.User.findByIdAndDelete(userId);
         if (!userResult) {
             throw new Error('User not found');
         }
@@ -42,7 +39,7 @@ function deleteUser(userId) {
 }
 function updateOneUser(userId, update) {
     return __awaiter(this, void 0, void 0, function* () {
-        const userResult = yield usersModel_1.users.findByIdAndUpdate(userId, update);
+        const userResult = yield usersModel_1.User.findByIdAndUpdate(userId, update);
         if (!userResult) {
             throw new Error('User not found');
         }
@@ -51,7 +48,7 @@ function updateOneUser(userId, update) {
 }
 function createOneUser(user) {
     return __awaiter(this, void 0, void 0, function* () {
-        const userResult = yield usersModel_1.users.create(user);
+        const userResult = yield usersModel_1.User.create(user);
         if (!userResult) {
             throw new Error('Error creating a new User');
         }

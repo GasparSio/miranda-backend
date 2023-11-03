@@ -16,7 +16,7 @@ exports.contactsController = (0, express_1.Router)();
 exports.contactsController.get('/', (_req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const contactsResult = yield contactsServices_1.contactsServices.fetchAll();
-        res.json(contactsResult);
+        res.json({ contactsResult });
     }
     catch (error) {
         next(error);

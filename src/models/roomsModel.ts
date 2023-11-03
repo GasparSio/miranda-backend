@@ -12,4 +12,4 @@ const roomsSchema = new mongoose.Schema<roomsInterface>({
 	"status": String,
 })
 
-export const rooms = mongoose.model('rooms', roomsSchema);
+export const Room = mongoose.model('Room', roomsSchema);

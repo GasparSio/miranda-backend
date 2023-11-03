@@ -13,16 +13,13 @@ exports.roomsServices = void 0;
 const roomsModel_1 = require("../models/roomsModel");
 function fetchAll() {
     return __awaiter(this, void 0, void 0, function* () {
-        const roomsResult = yield roomsModel_1.rooms.find();
-        if (roomsResult.length === 0) {
-            throw new Error("Error on finding rooms");
-        }
+        const roomsResult = yield roomsModel_1.Room.find();
         return roomsResult;
     });
 }
 function fetchOne(roomId) {
     return __awaiter(this, void 0, void 0, function* () {
-        const roomResult = yield roomsModel_1.rooms.findById(roomId);
+        const roomResult = yield roomsModel_1.Room.findById(roomId);
         if (!roomResult) {
             throw new Error("Error on finding rooms with this ID");
         }
@@ -31,7 +28,7 @@ function fetchOne(roomId) {
 }
 function deleteRoom(roomId) {
     return __awaiter(this, void 0, void 0, function* () {
-        const roomResult = yield roomsModel_1.rooms.findByIdAndDelete(roomId);
+        const roomResult = yield roomsModel_1.Room.findByIdAndDelete(roomId);
         if (!roomResult) {
             throw new Error('Room not found');
         }
@@ -40,7 +37,7 @@ function deleteRoom(roomId) {
 }
 function createOneRoom(room) {
     return __awaiter(this, void 0, void 0, function* () {
-        const roomResult = yield roomsModel_1.rooms.create(room);
+        const roomResult = yield roomsModel_1.Room.create(room);
         if (!roomResult) {
             throw new Error('Error creating a new Room');
         }
@@ -49,7 +46,7 @@ function createOneRoom(room) {
 }
 function updateOneRoom(roomId, update) {
     return __awaiter(this, void 0, void 0, function* () {
-        const roomResult = roomsModel_1.rooms.findByIdAndUpdate(roomId, update);
+        const roomResult = roomsModel_1.Room.findByIdAndUpdate(roomId, update);
         if (!roomResult) {
             throw new Error('Room not found');
         }

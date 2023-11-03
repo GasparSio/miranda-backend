@@ -15,5 +15,5 @@ const bookingsSchema = new mongoose.Schema<bookingsInterface>({
 	"photos": String
 })
 
-export const bookings = mongoose.model('bookings', bookingsSchema);
+export const Booking = mongoose.model('Booking', bookingsSchema);
 

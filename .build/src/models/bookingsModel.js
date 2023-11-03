@@ -3,7 +3,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.bookings = void 0;
+exports.Booking = void 0;
 const mongoose_1 = __importDefault(require("mongoose"));
 const bookingsSchema = new mongoose_1.default.Schema({
     "id": String,
@@ -18,4 +18,4 @@ const bookingsSchema = new mongoose_1.default.Schema({
     "status": String,
     "photos": String
 });
-exports.bookings = mongoose_1.default.model('bookings', bookingsSchema);
+exports.Booking = mongoose_1.default.model('Booking', bookingsSchema);

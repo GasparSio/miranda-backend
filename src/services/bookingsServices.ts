@@ -1,17 +1,14 @@
 import { bookingsInterface } from "../interfaces/bookingsInterface";
-import { bookings } from '../models/bookingsModel';
+import { Booking } from '../models/bookingsModel';
 
 
 async function fetchAll() {
-  const bookingsResult = await bookings.find()
-  if (bookingsResult.length === 0){
-    throw new Error("Error on finding bookings");
-  } 
+  const bookingsResult = await Booking.find()
   return bookingsResult;
 }
 
 async function fetchOne(bookingId: string) {
-  const bookingResult = await bookings.findById(bookingId);
+  const bookingResult = await Booking.findById(bookingId);
   if (!bookingResult) {
     throw new Error("Error on finding a booking with this ID");
   } 
@@ -19,7 +16,7 @@ async function fetchOne(bookingId: string) {
 }
 
 async function deleteBooking(bookingId: string) {
-  const bookingsResult = await bookings.findByIdAndDelete(bookingId)
+  const bookingsResult = await Booking.findByIdAndDelete(bookingId)
   if (!bookingsResult) {
     throw new Error("Error on finding a booking with this ID");
   } 
@@ -27,7 +24,7 @@ async function deleteBooking(bookingId: string) {
 }
 
 async function updateOneBooking(bookingId: string, update: Partial<bookingsInterface>) {
-	const bookingsResult = await bookings.findByIdAndUpdate(bookingId, update)
+	const bookingsResult = await Booking.findByIdAndUpdate(bookingId, update)
 	if (!bookingsResult) {
     throw new Error('Booking not found')
   }
@@ -35,7 +32,7 @@ async function updateOneBooking(bookingId: string, update: Partial<bookingsInter
 }
 
 async function createOneBooking(booking: bookingsInterface) {
-  const bookingResult = await bookings.create(booking);
+  const bookingResult = await Booking.create(booking);
   if (!bookingResult) {
     throw new Error('Error creating a new Booking');
   }

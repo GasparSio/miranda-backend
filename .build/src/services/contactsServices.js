@@ -13,16 +13,13 @@ exports.contactsServices = void 0;
 const contactsModel_1 = require("../models/contactsModel");
 function fetchAll() {
     return __awaiter(this, void 0, void 0, function* () {
-        const contactsResult = yield contactsModel_1.contacts.find();
-        if (contactsResult.length === 0) {
-            throw new Error("Error on finding contacts");
-        }
+        const contactsResult = yield contactsModel_1.Contact.find();
         return contactsResult;
     });
 }
 function fetchOne(contactId) {
     return __awaiter(this, void 0, void 0, function* () {
-        const contactResult = yield contactsModel_1.contacts.findById(contactId);
+        const contactResult = yield contactsModel_1.Contact.findById(contactId);
         if (!contactResult) {
             throw new Error("Error on finding a contact with this ID");
         }
@@ -31,7 +28,7 @@ function fetchOne(contactId) {
 }
 function deleteContact(contactId) {
     return __awaiter(this, void 0, void 0, function* () {
-        const contactResult = yield contactsModel_1.contacts.findByIdAndDelete(contactId);
+        const contactResult = yield contactsModel_1.Contact.findByIdAndDelete(contactId);
         if (!contactResult) {
             throw new Error('Contact not found');
         }
@@ -40,7 +37,7 @@ function deleteContact(contactId) {
 }
 function updateOneContact(contactId, update) {
     return __awaiter(this, void 0, void 0, function* () {
-        const contactResult = yield contactsModel_1.contacts.findByIdAndUpdate(contactId, update);
+        const contactResult = yield contactsModel_1.Contact.findByIdAndUpdate(contactId, update);
         if (!contactResult) {
             throw new Error('Contact not found');
         }
@@ -49,7 +46,7 @@ function updateOneContact(contactId, update) {
 }
 function createOneContact(contact) {
     return __awaiter(this, void 0, void 0, function* () {
-        const contactResult = yield contactsModel_1.contacts.create(contact);
+        const contactResult = yield contactsModel_1.Contact.create(contact);
         if (!contactResult) {
             throw new Error('Error creating a new Contact');
         }

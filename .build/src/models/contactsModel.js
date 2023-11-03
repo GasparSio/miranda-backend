@@ -3,7 +3,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.contacts = void 0;
+exports.Contact = void 0;
 const mongoose_1 = __importDefault(require("mongoose"));
 const contactsSchema = new mongoose_1.default.Schema({
     "id": String,
@@ -16,4 +16,4 @@ const contactsSchema = new mongoose_1.default.Schema({
     "dateTime": String,
     "isArchived": String
 });
-exports.contacts = mongoose_1.default.model('contacts', contactsSchema);
+exports.Contact = mongoose_1.default.model('Contact', contactsSchema);

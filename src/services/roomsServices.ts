@@ -1,16 +1,13 @@
 import { roomsInterface } from "../interfaces/roomsInterface";
-import { rooms } from '../models/roomsModel';
+import { Room } from '../models/roomsModel';
 
 async function fetchAll() {
-  const roomsResult = await rooms.find()
-  if (roomsResult.length === 0){
-    throw new Error("Error on finding rooms");
-  } 
+  const roomsResult = await Room.find()
   return roomsResult;
 }
 
 async function fetchOne(roomId: string) {
-  const roomResult = await rooms.findById(roomId);
+  const roomResult = await Room.findById(roomId);
   if (!roomResult) {
     throw new Error("Error on finding rooms with this ID");
   } 
@@ -18,7 +15,7 @@ async function fetchOne(roomId: string) {
 }
 
 async function deleteRoom(roomId: string) {
-const roomResult = await rooms.findByIdAndDelete(roomId)
+const roomResult = await Room.findByIdAndDelete(roomId)
 if (!roomResult) {
   throw new Error('Room not found')
 }
@@ -26,7 +23,7 @@ if (!roomResult) {
 }
 
 async function createOneRoom(room: roomsInterface) {
-    const roomResult = await rooms.create(room);
+    const roomResult = await Room.create(room);
     if (!roomResult) {
       throw new Error('Error creating a new Room');
     }
@@ -34,7 +31,7 @@ async function createOneRoom(room: roomsInterface) {
   }
 
 async function updateOneRoom(roomId: string, update: Partial<roomsInterface>) {
-	const roomResult = rooms.findByIdAndUpdate(roomId, update)
+	const roomResult = Room.findByIdAndUpdate(roomId, update)
 	if (!roomResult) {
     throw new Error('Room not found')
   }
