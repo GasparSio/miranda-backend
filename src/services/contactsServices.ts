@@ -1,10 +1,8 @@
-import contactsData from '../data/contactsData.json';
 import { contactsInterface } from "../interfaces/contactsInterface";
-
-export const contacts = contactsData
+import { contacts } from "../models/contactsModel";
 
 async function fetchAll() {
-  const contactsResult = await contacts
+  const contactsResult = await contacts.find()
   if (contactsResult.length === 0){
     throw new Error("Error on finding contacts");
   } 
@@ -12,44 +10,36 @@ async function fetchAll() {
 }
 
 async function fetchOne(contactId: string) {
-  const contactResult = await contacts.filter((contact) => contact.id === contactId);
-  if (contactResult.length === 0) {
+  const contactResult = await contacts.findById(contactId);
+  if (!contactResult) {
     throw new Error("Error on finding a contact with this ID");
   } 
   return contactResult;
 }
 
 async function deleteContact(contactId: string) {
-  // const id = userId.toString()
-const currentContactIndex = contacts.findIndex((contact) => contact.id === contactId)
-  if (currentContactIndex === -1) {
+  const contactResult = await contacts.findByIdAndDelete(contactId)
+  if (!contactResult) {
     throw new Error('Contact not found')
-  }else {
-    const result = await contacts.splice(currentContactIndex, 1)
-    return result
-}
+  }
+    return contactResult
 }
 
 async function updateOneContact(contactId: string, update: Partial<contactsInterface>) {
-    // const id = userId.toString()
-	const currentContactIndex = contacts.findIndex((contact) => contact.id === contactId)
-	if (currentContactIndex === -1) throw new Error('User not found')
-	const result = (contacts[currentContactIndex] = {
-		...contacts[currentContactIndex],
-		...update,
-	})
-	return result
+	const contactResult = await contacts.findByIdAndUpdate(contactId, update)
+	if (!contactResult){
+    throw new Error('Contact not found')
+  } 
+	return contactResult
 }
 
 async function createOneContact(contact: contactsInterface) {
-  const initialUsersLength = contacts.length;
-  await contacts.push(contact);
-  if (contacts.length === initialUsersLength) {
+  const contactResult = await contacts.create(contact);
+  if (!contactResult) {
     throw new Error('Error creating a new Contact');
   }
-  return contact;
+  return contactResult;
 }
-
 
 export const contactsServices = {
     fetchAll,

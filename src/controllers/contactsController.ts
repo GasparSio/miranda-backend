@@ -9,7 +9,7 @@ contactsController.get('/', async (_req: Request, res: Response, next: NextFunct
         const contactsResult = await contactsServices.fetchAll()
         res.json(contactsResult)
     } catch (error) {
-        next()    
+        next(error)    
     }
 })
 
@@ -18,7 +18,7 @@ contactsController.get("/:contactId", async (req: Request, res: Response, next: 
       const contactsResult = await contactsServices.fetchOne(req.params.contactId);
         res.json(contactsResult);
     } catch (error) {
-      next()
+      next(error)
     }
   }
 );
@@ -28,7 +28,7 @@ contactsController.delete("/:contactId", async (req: Request, res: Response, nex
       const contactsResult = await contactsServices.delete(req.params.contactId);
       res.json(contactsResult);
     } catch (error) {
-      next()
+      next(error)
     }
   }
 );
@@ -38,7 +38,7 @@ contactsController.put("/:contactId", async (req: Request,res: Response, next: N
       const contactsResult = await contactsServices.updateOneContact(req.params.contactId, req.body);
       res.json(contactsResult);
     } catch (error) {
-      next()
+      next(error)
     }
   }
 );
@@ -48,7 +48,7 @@ contactsController.post("/", async (req: Request<contactsInterface>, res: Respon
       const contactsResult = await contactsServices.createOneContact(req.body);
       res.json(contactsResult);
     } catch (error) {
-      next()
+      next(error)
     }
   }
 );

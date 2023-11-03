@@ -7,6 +7,21 @@ import { bookingsController } from './controllers/bookingsController';
 import { infoController } from './controllers/infoController';
 import { loginController } from './controllers/loginController';
 import { authMiddleware } from './middleware/authMiddleware';
+import mongoose from 'mongoose';
+
+const mongoUrl: string = process.env.MONGO_URL || '';
+
+(async () => {
+    try {
+        await mongoose.connect(mongoUrl, {
+            dbName: 'Miranda_API',
+        })
+        console.log('Connected to Mongo')
+    } catch (error) {
+        throw new Error(`${error}`)
+     }
+})()
+
 
 export const app = express();
 

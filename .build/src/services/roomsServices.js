@@ -8,16 +8,12 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.roomsServices = exports.rooms = void 0;
-const roomsData_json_1 = __importDefault(require("../data/roomsData.json"));
-exports.rooms = roomsData_json_1.default;
+exports.roomsServices = void 0;
+const roomsModel_1 = require("../models/roomsModel");
 function fetchAll() {
     return __awaiter(this, void 0, void 0, function* () {
-        const roomsResult = yield exports.rooms;
+        const roomsResult = yield roomsModel_1.rooms.find();
         if (roomsResult.length === 0) {
             throw new Error("Error on finding rooms");
         }
@@ -26,8 +22,8 @@ function fetchAll() {
 }
 function fetchOne(roomId) {
     return __awaiter(this, void 0, void 0, function* () {
-        const roomResult = yield exports.rooms.filter((room) => room.id === roomId);
-        if (roomResult.length === 0) {
+        const roomResult = yield roomsModel_1.rooms.findById(roomId);
+        if (!roomResult) {
             throw new Error("Error on finding rooms with this ID");
         }
         return roomResult;
@@ -35,32 +31,29 @@ function fetchOne(roomId) {
 }
 function deleteRoom(roomId) {
     return __awaiter(this, void 0, void 0, function* () {
-        // const id = roomId.toString()
-        const currentRoomIndex = exports.rooms.findIndex((room) => room.id === roomId);
-        if (currentRoomIndex === -1)
+        const roomResult = yield roomsModel_1.rooms.findByIdAndDelete(roomId);
+        if (!roomResult) {
             throw new Error('Room not found');
-        const result = yield exports.rooms.splice(currentRoomIndex, 1);
-        return result;
+        }
+        return roomResult;
     });
 }
 function createOneRoom(room) {
     return __awaiter(this, void 0, void 0, function* () {
-        const initialRoomsLength = exports.rooms.length;
-        yield exports.rooms.push(room);
-        if (exports.rooms.length === initialRoomsLength) {
+        const roomResult = yield roomsModel_1.rooms.create(room);
+        if (!roomResult) {
             throw new Error('Error creating a new Room');
         }
-        return room;
+        return roomResult;
     });
 }
 function updateOneRoom(roomId, update) {
     return __awaiter(this, void 0, void 0, function* () {
-        // const id = roomId.toString()
-        const currentRoomsIndex = exports.rooms.findIndex((room) => room.id === roomId);
-        if (currentRoomsIndex === -1)
+        const roomResult = roomsModel_1.rooms.findByIdAndUpdate(roomId, update);
+        if (!roomResult) {
             throw new Error('Room not found');
-        const result = (exports.rooms[currentRoomsIndex] = Object.assign(Object.assign({}, exports.rooms[currentRoomsIndex]), update));
-        return result;
+        }
+        return roomResult;
     });
 }
 exports.roomsServices = {

@@ -1,10 +1,9 @@
-import usersData from '../data/usersData.json';
 import { usersInterface } from "../interfaces/usersInterface";
+import { users } from '../models/usersModel';
 
-export const users = usersData
 
 async function fetchAll() {
-  const usersResult = await users
+  const usersResult = await users.find()
   if (usersResult.length === 0){
     throw new Error("Error on finding users");
   } 
@@ -12,49 +11,37 @@ async function fetchAll() {
 }
 
 async function fetchOne(userId: string) {
-  const userResult = await users.filter((user) => user.employee_id === userId);
-  if (userResult.length === 0) {
+  const userResult = await users.findById(userId);
+  if (!userResult) {
     throw new Error("Error on finding users with this ID");
   } 
   return userResult;
 }
 
 async function deleteUser(userId: string) {
-  // const id = userId.toString()
-const currentUserIndex = users.findIndex((user) => user.employee_id === userId)
-
-  if (currentUserIndex === -1) {
+const userResult = await users.findByIdAndDelete(userId)
+  if (!userResult) {
     throw new Error('User not found')
   }else{
-    const result = await users.splice(currentUserIndex, 1)
-    return result
+    return userResult
   }
 }
 
 async function updateOneUser(userId: string, update: Partial<usersInterface>) {
-  // const id = userId.toString()
-const currentUserIndex = users.findIndex((user) => user.employee_id === userId)
-  if (currentUserIndex === -1) throw new Error('User not found')
-  const result = (users[currentUserIndex] = {
-    ...users[currentUserIndex],
-    ...update,
-  })
-return result
+const userResult = await users.findByIdAndUpdate(userId, update)
+  if (!userResult) {
+    throw new Error('User not found')
+  }
+  return userResult
 }
 
 async function createOneUser(user: usersInterface) {
-    const initialUsersLength = users.length;
-    await users.push(user);
-    if (users.length === initialUsersLength) {
+    const userResult = await users.create(user);
+    if (!userResult) {
       throw new Error('Error creating a new User');
     }
-    return user;
+    return userResult;
 }
-
-
-
-
-
 
 export const usersServices = {
     fetchAll,

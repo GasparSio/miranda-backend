@@ -8,16 +8,12 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.contactsServices = exports.contacts = void 0;
-const contactsData_json_1 = __importDefault(require("../data/contactsData.json"));
-exports.contacts = contactsData_json_1.default;
+exports.contactsServices = void 0;
+const contactsModel_1 = require("../models/contactsModel");
 function fetchAll() {
     return __awaiter(this, void 0, void 0, function* () {
-        const contactsResult = yield exports.contacts;
+        const contactsResult = yield contactsModel_1.contacts.find();
         if (contactsResult.length === 0) {
             throw new Error("Error on finding contacts");
         }
@@ -26,8 +22,8 @@ function fetchAll() {
 }
 function fetchOne(contactId) {
     return __awaiter(this, void 0, void 0, function* () {
-        const contactResult = yield exports.contacts.filter((contact) => contact.id === contactId);
-        if (contactResult.length === 0) {
+        const contactResult = yield contactsModel_1.contacts.findById(contactId);
+        if (!contactResult) {
             throw new Error("Error on finding a contact with this ID");
         }
         return contactResult;
@@ -35,35 +31,29 @@ function fetchOne(contactId) {
 }
 function deleteContact(contactId) {
     return __awaiter(this, void 0, void 0, function* () {
-        // const id = userId.toString()
-        const currentContactIndex = exports.contacts.findIndex((contact) => contact.id === contactId);
-        if (currentContactIndex === -1) {
+        const contactResult = yield contactsModel_1.contacts.findByIdAndDelete(contactId);
+        if (!contactResult) {
             throw new Error('Contact not found');
         }
-        else {
-            const result = yield exports.contacts.splice(currentContactIndex, 1);
-            return result;
-        }
+        return contactResult;
     });
 }
 function updateOneContact(contactId, update) {
     return __awaiter(this, void 0, void 0, function* () {
-        // const id = userId.toString()
-        const currentContactIndex = exports.contacts.findIndex((contact) => contact.id === contactId);
-        if (currentContactIndex === -1)
-            throw new Error('User not found');
-        const result = (exports.contacts[currentContactIndex] = Object.assign(Object.assign({}, exports.contacts[currentContactIndex]), update));
-        return result;
+        const contactResult = yield contactsModel_1.contacts.findByIdAndUpdate(contactId, update);
+        if (!contactResult) {
+            throw new Error('Contact not found');
+        }
+        return contactResult;
     });
 }
 function createOneContact(contact) {
     return __awaiter(this, void 0, void 0, function* () {
-        const initialUsersLength = exports.contacts.length;
-        yield exports.contacts.push(contact);
-        if (exports.contacts.length === initialUsersLength) {
+        const contactResult = yield contactsModel_1.contacts.create(contact);
+        if (!contactResult) {
             throw new Error('Error creating a new Contact');
         }
-        return contact;
+        return contactResult;
     });
 }
 exports.contactsServices = {

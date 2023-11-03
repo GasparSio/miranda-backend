@@ -1,10 +1,8 @@
-import roomsData from '../data/roomsData.json';
 import { roomsInterface } from "../interfaces/roomsInterface";
-
-export const rooms = roomsData
+import { rooms } from '../models/roomsModel';
 
 async function fetchAll() {
-  const roomsResult = await rooms
+  const roomsResult = await rooms.find()
   if (roomsResult.length === 0){
     throw new Error("Error on finding rooms");
   } 
@@ -12,40 +10,35 @@ async function fetchAll() {
 }
 
 async function fetchOne(roomId: string) {
-  const roomResult = await rooms.filter((room) => room.id === roomId);
-  if (roomResult.length === 0) {
+  const roomResult = await rooms.findById(roomId);
+  if (!roomResult) {
     throw new Error("Error on finding rooms with this ID");
   } 
   return roomResult;
 }
 
 async function deleteRoom(roomId: string) {
-  // const id = roomId.toString()
-const currentRoomIndex = rooms.findIndex((room) => room.id === roomId)
-
-if (currentRoomIndex === -1) throw new Error('Room not found')
-const result = await rooms.splice(currentRoomIndex, 1)
-return result
+const roomResult = await rooms.findByIdAndDelete(roomId)
+if (!roomResult) {
+  throw new Error('Room not found')
+}
+  return roomResult
 }
 
 async function createOneRoom(room: roomsInterface) {
-    const initialRoomsLength = rooms.length;
-    await rooms.push(room);
-    if (rooms.length === initialRoomsLength) {
+    const roomResult = await rooms.create(room);
+    if (!roomResult) {
       throw new Error('Error creating a new Room');
     }
-    return room;
+    return roomResult;
   }
 
 async function updateOneRoom(roomId: string, update: Partial<roomsInterface>) {
-    // const id = roomId.toString()
-	const currentRoomsIndex = rooms.findIndex((room) => room.id === roomId)
-	if (currentRoomsIndex === -1) throw new Error('Room not found')
-	const result = (rooms[currentRoomsIndex] = {
-		...rooms[currentRoomsIndex],
-		...update,
-	})
-	return result
+	const roomResult = rooms.findByIdAndUpdate(roomId, update)
+	if (!roomResult) {
+    throw new Error('Room not found')
+  }
+	return roomResult
 }
 
 export const roomsServices = {

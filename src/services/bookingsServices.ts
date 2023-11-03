@@ -1,10 +1,9 @@
-import bookingsData from '../data/bookingsData.json';
 import { bookingsInterface } from "../interfaces/bookingsInterface";
+import { bookings } from '../models/bookingsModel';
 
-export const bookings = bookingsData
 
 async function fetchAll() {
-  const bookingsResult = await bookings
+  const bookingsResult = await bookings.find()
   if (bookingsResult.length === 0){
     throw new Error("Error on finding bookings");
   } 
@@ -12,42 +11,35 @@ async function fetchAll() {
 }
 
 async function fetchOne(bookingId: string) {
-  const bookingsResult = await bookings.filter((booking) => booking.id === bookingId);
-  if (bookingsResult.length === 0) {
+  const bookingResult = await bookings.findById(bookingId);
+  if (!bookingResult) {
+    throw new Error("Error on finding a booking with this ID");
+  } 
+  return bookingResult;
+}
+
+async function deleteBooking(bookingId: string) {
+  const bookingsResult = await bookings.findByIdAndDelete(bookingId)
+  if (!bookingsResult) {
     throw new Error("Error on finding a booking with this ID");
   } 
   return bookingsResult;
 }
 
-async function deleteBooking(bookingId: string) {
-  // const id = userId.toString()
-const currentBookingsIndex = bookings.findIndex((booking) => booking.id === bookingId)
-  if (currentBookingsIndex === -1) {
-    throw new Error('Booking not found')
-  }else {
-    const result = await bookings.splice(currentBookingsIndex, 1)
-    return result
-}
-}
-
 async function updateOneBooking(bookingId: string, update: Partial<bookingsInterface>) {
-    // const id = userId.toString()
-	const currentBookingIndex = bookings.findIndex((booking) => booking.id === bookingId)
-	if (currentBookingIndex === -1) throw new Error('Booking not found')
-	const result = (bookings[currentBookingIndex] = {
-		...bookings[currentBookingIndex],
-		...update,
-	})
-	return result
+	const bookingsResult = await bookings.findByIdAndUpdate(bookingId, update)
+	if (!bookingsResult) {
+    throw new Error('Booking not found')
+  }
+	return bookingsResult
 }
 
 async function createOneBooking(booking: bookingsInterface) {
-  const initialUsersLength = bookings.length;
-  await bookings.push(booking);
-  if (bookings.length === initialUsersLength) {
+  const bookingResult = await bookings.create(booking);
+  if (!bookingResult) {
     throw new Error('Error creating a new Booking');
   }
-  return booking;
+  return bookingResult;
 }
 
 

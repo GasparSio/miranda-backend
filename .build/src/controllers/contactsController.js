@@ -19,7 +19,7 @@ exports.contactsController.get('/', (_req, res, next) => __awaiter(void 0, void 
         res.json(contactsResult);
     }
     catch (error) {
-        next();
+        next(error);
     }
 }));
 exports.contactsController.get("/:contactId", (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
@@ -28,7 +28,7 @@ exports.contactsController.get("/:contactId", (req, res, next) => __awaiter(void
         res.json(contactsResult);
     }
     catch (error) {
-        next();
+        next(error);
     }
 }));
 exports.contactsController.delete("/:contactId", (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
@@ -37,7 +37,7 @@ exports.contactsController.delete("/:contactId", (req, res, next) => __awaiter(v
         res.json(contactsResult);
     }
     catch (error) {
-        next();
+        next(error);
     }
 }));
 exports.contactsController.put("/:contactId", (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
@@ -46,7 +46,7 @@ exports.contactsController.put("/:contactId", (req, res, next) => __awaiter(void
         res.json(contactsResult);
     }
     catch (error) {
-        next();
+        next(error);
     }
 }));
 exports.contactsController.post("/", (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
@@ -55,6 +55,6 @@ exports.contactsController.post("/", (req, res, next) => __awaiter(void 0, void 
         res.json(contactsResult);
     }
     catch (error) {
-        next();
+        next(error);
     }
 }));
