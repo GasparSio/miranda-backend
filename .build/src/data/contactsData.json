@@ -1,0 +1,112 @@
+[
+    {
+        "id": "1",
+        "full_name": "Alice Johnson",
+        "email": "alice.johnson@example.com",
+        "phone_number": "555-123-4567",
+        "subject_of_review": "Wonderful Stay",
+        "review_body": "I had a wonderful stay at this hotel. The staff was friendly and accommodating, and the room was clean and comfortable. The hotel's amenities, including the pool and fitness center, were top-notch. I would definitely recommend it.",
+        "date": "2023-09-25",
+        "dateTime": "09:15 AM",
+        "isArchived": "false"
+    },
+    {
+        "id": "2",
+        "full_name": "Bob Smith",
+        "email": "bob.smith@example.com",
+        "phone_number": "555-987-6543",
+        "subject_of_review": "Excellent Service",
+        "review_body": "I was thoroughly impressed with the excellent service provided by the hotel staff. They were attentive and made my stay truly enjoyable. The restaurant's food was delicious, and the location was perfect for exploring the city.",
+        "date": "2023-09-26",
+        "dateTime": "10:30 AM",
+        "isArchived": "false"
+    },
+    {
+        "id": "3",
+        "full_name": "Caroline Davis",
+        "email": "caroline.davis@example.com",
+        "phone_number": "555-555-1234",
+        "subject_of_review": "Relaxing Getaway",
+        "review_body": "My stay at this hotel was a relaxing getaway. The spa treatments were exceptional, and I felt rejuvenated after my visit. The room had a beautiful view, and the staff made me feel right at home.",
+        "date": "2023-09-27",
+        "dateTime": "02:45 PM",
+        "isArchived": "false"
+    },
+    {
+        "id": "4",
+        "full_name": "Daniel Brown",
+        "email": "daniel.brown@example.com",
+        "phone_number": "555-888-9999",
+        "subject_of_review": "Outstanding Experience",
+        "review_body": "I can't say enough about the outstanding experience I had at this hotel. From the moment I arrived, I was treated like royalty. The room was luxurious, and the staff made sure every detail was perfect.",
+        "date": "2023-09-28",
+        "dateTime": "08:00 AM",
+        "isArchived": "false"
+    },
+    {
+        "id": "5",
+        "full_name": "Eleanor Wilson",
+        "email": "eleanor.wilson@example.com",
+        "phone_number": "555-333-4444",
+        "subject_of_review": "Great Hospitality",
+        "review_body": "The hotel's hospitality was exceptional. I felt welcomed throughout my stay, and the staff's attention to detail made it truly special. The location was convenient, and I enjoyed exploring the nearby attractions.",
+        "date": "2023-09-29",
+        "dateTime": "11:15 AM",
+        "isArchived": "false"
+    },
+    {
+        "id": "6",
+        "full_name": "Fiona Lee",
+        "email": "fiona.lee@example.com",
+        "phone_number": "555-777-8888",
+        "subject_of_review": "Memorable Trip",
+        "review_body": "My trip to this hotel was truly memorable. The room was spacious and well-appointed, and the hotel's restaurant served delicious meals. The concierge helped me plan some great outings in the city.",
+        "date": "2023-09-30",
+        "dateTime": "03:30 PM",
+        "isArchived": "false"
+    },
+    {
+        "id": "7",
+        "full_name": "George Martinez",
+        "email": "george.martinez@example.com",
+        "phone_number": "555-666-7777",
+        "subject_of_review": "Fantastic Stay",
+        "review_body": "I had a fantastic stay at this hotel. The room was clean and comfortable, and the staff provided excellent service. The hotel's location was ideal for exploring the city, and I had a great time.",
+        "date": "2023-10-01",
+        "dateTime": "06:45 AM",
+        "isArchived": "false"
+    },
+    {
+        "id": "8",
+        "full_name": "Hannah Garcia",
+        "email": "hannah.garcia@example.com",
+        "phone_number": "555-111-2222",
+        "subject_of_review": "Luxurious Retreat",
+        "review_body": "This hotel provided a luxurious retreat. The spa was a highlight, and the treatments were heavenly. The attention to detail in the room design was impressive, and I felt pampered throughout my stay.",
+        "date": "2023-10-02",
+        "dateTime": "01:00 PM",
+        "isArchived": "false"
+    },
+    {
+        "id": "9",
+        "full_name": "Isaac Lopez",
+        "email": "isaac.lopez@example.com",
+        "phone_number": "555-999-1111",
+        "subject_of_review": "Great Dining Experience",
+        "review_body": "I had a great dining experience at this hotel's restaurant. The food was delicious, and the staff was knowledgeable about wine pairings. The atmosphere was perfect for a romantic dinner.",
+        "date": "2023-10-03",
+        "dateTime": "07:30 PM",
+        "isArchived": "false"
+    },
+    {
+        "id": "10",
+        "full_name": "Julia Adams",
+        "email": "julia.adams@example.com",
+        "phone_number": "555-456-7890",
+        "subject_of_review": "Exceptional Staff",
+        "review_body": "The staff at this hotel were exceptional. They made me feel like a VIP from the moment I arrived. Whether it was the concierge arranging a city tour or the housekeeping team ensuring my room was spotless, their service was top-notch.",
+        "date": "2023-10-04",
+        "dateTime": "04:00 PM",
+        "isArchived": "false"
+    }
+]
