@@ -1,17 +1,14 @@
 import { usersInterface } from "../interfaces/usersInterface";
-import { users } from '../models/usersModel';
+import { User } from '../models/usersModel';
 
 
 async function fetchAll() {
-  const usersResult = await users.find()
-  if (usersResult.length === 0){
-    throw new Error("Error on finding users");
-  } 
+  const usersResult = await User.find()
   return usersResult;
 }
 
 async function fetchOne(userId: string) {
-  const userResult = await users.findById(userId);
+  const userResult = await User.findById(userId);
   if (!userResult) {
     throw new Error("Error on finding users with this ID");
   } 
@@ -19,7 +16,7 @@ async function fetchOne(userId: string) {
 }
 
 async function deleteUser(userId: string) {
-const userResult = await users.findByIdAndDelete(userId)
+const userResult = await User.findByIdAndDelete(userId)
   if (!userResult) {
     throw new Error('User not found')
   }else{
@@ -28,7 +25,7 @@ const userResult = await users.findByIdAndDelete(userId)
 }
 
 async function updateOneUser(userId: string, update: Partial<usersInterface>) {
-const userResult = await users.findByIdAndUpdate(userId, update)
+const userResult = await User.findByIdAndUpdate(userId, update)
   if (!userResult) {
     throw new Error('User not found')
   }
@@ -36,7 +33,7 @@ const userResult = await users.findByIdAndUpdate(userId, update)
 }
 
 async function createOneUser(user: usersInterface) {
-    const userResult = await users.create(user);
+    const userResult = await User.create(user);
     if (!userResult) {
       throw new Error('Error creating a new User');
     }

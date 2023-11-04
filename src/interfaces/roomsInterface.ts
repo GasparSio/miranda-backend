@@ -3,8 +3,8 @@ export interface roomsInterface {
 	roomNumber: string
 	id: string
 	bedType: string
-	facilities: string
-	price: string
-	offerprice: string
+	facilities: string[]
+	price: number
+	offerprice: number
 	status: string
 }

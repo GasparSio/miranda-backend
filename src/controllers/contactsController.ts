@@ -7,7 +7,7 @@ export const contactsController = Router();
 contactsController.get('/', async (_req: Request, res: Response, next: NextFunction) => {
     try {
         const contactsResult = await contactsServices.fetchAll()
-        res.json(contactsResult)
+        res.json({contactsResult})
     } catch (error) {
         next(error)    
     }

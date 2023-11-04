@@ -1,16 +1,13 @@
 import { contactsInterface } from "../interfaces/contactsInterface";
-import { contacts } from "../models/contactsModel";
+import { Contact } from "../models/contactsModel";
 
 async function fetchAll() {
-  const contactsResult = await contacts.find()
-  if (contactsResult.length === 0){
-    throw new Error("Error on finding contacts");
-  } 
+  const contactsResult = await Contact.find()
   return contactsResult;
 }
 
 async function fetchOne(contactId: string) {
-  const contactResult = await contacts.findById(contactId);
+  const contactResult = await Contact.findById(contactId);
   if (!contactResult) {
     throw new Error("Error on finding a contact with this ID");
   } 
@@ -18,7 +15,7 @@ async function fetchOne(contactId: string) {
 }
 
 async function deleteContact(contactId: string) {
-  const contactResult = await contacts.findByIdAndDelete(contactId)
+  const contactResult = await Contact.findByIdAndDelete(contactId)
   if (!contactResult) {
     throw new Error('Contact not found')
   }
@@ -26,7 +23,7 @@ async function deleteContact(contactId: string) {
 }
 
 async function updateOneContact(contactId: string, update: Partial<contactsInterface>) {
-	const contactResult = await contacts.findByIdAndUpdate(contactId, update)
+	const contactResult = await Contact.findByIdAndUpdate(contactId, update)
 	if (!contactResult){
     throw new Error('Contact not found')
   } 
@@ -34,7 +31,7 @@ async function updateOneContact(contactId: string, update: Partial<contactsInter
 }
 
 async function createOneContact(contact: contactsInterface) {
-  const contactResult = await contacts.create(contact);
+  const contactResult = await Contact.create(contact);
   if (!contactResult) {
     throw new Error('Error creating a new Contact');
   }

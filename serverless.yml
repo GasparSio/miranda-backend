@@ -1,21 +1,16 @@
-service: backend-miranda-node
+service: api-backend-miranda
 frameworkVersion: "3"
+
 provider:
   name: aws
-  region: eu-west-1
+  runtime: nodejs18.x
+  region: eu-west-1 
   environment:
     SECRET_KEY: ${file(.env.json):SECRET_KEY}
-  runtime: nodejs18.x
+    ATLAS_SERVER: ${file(.env.json):ATLAS_SERVER}
+    
 functions:
   api:
-    handler: src/lambda.handler
+    handler: dist/lambda.handler
     events:
-      - http:
-          path: /
-          method: ANY
-      - http:
-          path: /{proxy+}
-          method: ANY
-plugins:
-  - serverless-plugin-typescript
-  - serverless-offline          
+      - httpApi: "*"

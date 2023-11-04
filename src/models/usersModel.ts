@@ -12,4 +12,4 @@ const usersSchema = new mongoose.Schema<usersInterface>({
 	"status": String,
 })
 
-export const users = mongoose.model('users', usersSchema);
+export const User = mongoose.model('User', usersSchema);
