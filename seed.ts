@@ -14,13 +14,13 @@ import { Contact } from './src/models/contactsModel';
 const MAXNUM: number = 10;
 const NUM_ROOMS: number = 10;
 const NUM_BOOKINGS: number = 40;
-const server: string = (process.argv.includes("atlas") ? process.env.ATLAS_SERVER : process.env.MONGO_URL) || '';
+// const server: string = (process.argv.includes("atlas") ? process.env.ATLAS_SERVER : process.env.MONGO_URL) || '';
 const databaseName: string = process.env.DB_NAME || "";
 const roomType = ["Double Superior", "Single", "Deluxe", "Suite", "Imperial", "Double"];
 
 async function seedDB(){
     try {
-        await mongoose.connect(server, {
+        await mongoose.connect(process.env.ATLAS_SERVER as string, {
             dbName: databaseName,
         })
         console.log('connected');

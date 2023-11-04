@@ -6,7 +6,7 @@ const roomsSchema = new mongoose.Schema<roomsInterface>({
     "roomNumber": String,
 	"id": String,
 	"bedType": String,
-	"facilities": String,
+	"facilities": [String],
 	"price": String,
 	"offerprice": String,
 	"status": String,

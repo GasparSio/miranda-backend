@@ -9,11 +9,12 @@ import { loginController } from './controllers/loginController';
 import { authMiddleware } from './middleware/authMiddleware';
 import mongoose from 'mongoose';
 
-const mongoUrl: string = process.env.MONGO_URL || '';
+// const mongoUrl: string = process.env.MONGO_URL || '';
+const ATLAS_SERVER: string = process.env.ATLAS_SERVER || '';
 
 (async () => {
     try {
-        await mongoose.connect(mongoUrl, {
+        await mongoose.connect(ATLAS_SERVER, {
             dbName: 'Miranda_API',
         })
         console.log('Connected to Mongo')
