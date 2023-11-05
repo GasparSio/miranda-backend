@@ -1,4 +1,4 @@
-service: backend-miranda-node
+service: backend-miranda-node-with-sql
 frameworkVersion: "3"
 provider:
   name: aws
