@@ -1,37 +1,28 @@
 import bookingsData from '../data/bookingsData.json';
 import { bookingsInterface } from "../interfaces/bookingsInterface";
+import { SelectQuery } from '../util/connecionSQL';
 
 export const bookings = bookingsData
 
 async function fetchAll() {
-  const bookingsResult = await bookings
-  if (bookingsResult.length === 0){
-    throw new Error("Error on finding bookings");
-  } 
-  return bookingsResult;
+  const result = await SelectQuery(
+    'select b.*, r.room_number, r.room_type, GROUP_CONCAT(p.photos) AS all_photos FROM booking b LEFT JOIN room r ON b.room_id = r.id LEFT JOIN photo p ON r.id = p.room_id GROUP BY b.id;')
+  return result;
 }
 
 async function fetchOne(bookingId: string) {
-  const bookingsResult = await bookings.filter((booking) => booking.id === bookingId);
-  if (bookingsResult.length === 0) {
-    throw new Error("Error on finding a booking with this ID");
-  } 
-  return bookingsResult;
+  const result = await SelectQuery(
+    `select b.*, r.room_number, r.room_type, GROUP_CONCAT(p.photos) AS all_photos FROM booking b LEFT JOIN room r ON b.room_id = r.id LEFT JOIN photo p ON r.id = p.room_id WHERE b.id = ${bookingId} GROUP BY b.id;`)
+  return result;
 }
 
 async function deleteBooking(bookingId: string) {
-  // const id = userId.toString()
-const currentBookingsIndex = bookings.findIndex((booking) => booking.id === bookingId)
-  if (currentBookingsIndex === -1) {
-    throw new Error('Booking not found')
-  }else {
-    const result = await bookings.splice(currentBookingsIndex, 1)
-    return result
-}
+  const result = await SelectQuery(
+    `delete from booking where id = ${bookingId};`)
+  return result;
 }
 
 async function updateOneBooking(bookingId: string, update: Partial<bookingsInterface>) {
-    // const id = userId.toString()
 	const currentBookingIndex = bookings.findIndex((booking) => booking.id === bookingId)
 	if (currentBookingIndex === -1) throw new Error('Booking not found')
 	const result = (bookings[currentBookingIndex] = {

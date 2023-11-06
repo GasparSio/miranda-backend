@@ -1,34 +1,25 @@
 import usersData from '../data/usersData.json';
 import { usersInterface } from "../interfaces/usersInterface";
+import { SelectQuery } from '../util/connecionSQL';
 
 export const users = usersData
 
 async function fetchAll() {
-  const usersResult = await users
-  if (usersResult.length === 0){
-    throw new Error("Error on finding users");
-  } 
-  return usersResult;
+  const result = await SelectQuery(
+    'select * from user;')
+  return result;
 }
 
 async function fetchOne(userId: string) {
-  const userResult = await users.filter((user) => user.employee_id === userId);
-  if (userResult.length === 0) {
-    throw new Error("Error on finding users with this ID");
-  } 
-  return userResult;
+  const result = await SelectQuery(
+    `select * from user WHERE id = ${userId};`)
+  return result;
 }
 
 async function deleteUser(userId: string) {
-  // const id = userId.toString()
-const currentUserIndex = users.findIndex((user) => user.employee_id === userId)
-
-  if (currentUserIndex === -1) {
-    throw new Error('User not found')
-  }else{
-    const result = await users.splice(currentUserIndex, 1)
-    return result
-  }
+  const result = await SelectQuery(
+    `delete from user where id = ${userId};`)
+  return result;
 }
 
 async function updateOneUser(userId: string, update: Partial<usersInterface>) {
@@ -50,10 +41,6 @@ async function createOneUser(user: usersInterface) {
     }
     return user;
 }
-
-
-
-
 
 
 export const usersServices = {

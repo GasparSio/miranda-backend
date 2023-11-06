@@ -1,33 +1,25 @@
 import contactsData from '../data/contactsData.json';
 import { contactsInterface } from "../interfaces/contactsInterface";
+import { SelectQuery } from '../util/connecionSQL';
 
 export const contacts = contactsData
 
 async function fetchAll() {
-  const contactsResult = await contacts
-  if (contactsResult.length === 0){
-    throw new Error("Error on finding contacts");
-  } 
-  return contactsResult;
+  const result = await SelectQuery(
+    'select * from contact;')
+  return result;
 }
 
 async function fetchOne(contactId: string) {
-  const contactResult = await contacts.filter((contact) => contact.id === contactId);
-  if (contactResult.length === 0) {
-    throw new Error("Error on finding a contact with this ID");
-  } 
-  return contactResult;
+  const result = await SelectQuery(
+    `select * from contact WHERE id = ${contactId};`)
+  return result;
 }
 
 async function deleteContact(contactId: string) {
-  // const id = userId.toString()
-const currentContactIndex = contacts.findIndex((contact) => contact.id === contactId)
-  if (currentContactIndex === -1) {
-    throw new Error('Contact not found')
-  }else {
-    const result = await contacts.splice(currentContactIndex, 1)
-    return result
-}
+  const result = await SelectQuery(
+    `delete from contact where id = ${contactId};`)
+  return result;
 }
 
 async function updateOneContact(contactId: string, update: Partial<contactsInterface>) {
