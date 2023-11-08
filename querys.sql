@@ -113,27 +113,27 @@ insert into user (full_name, email, photo, start_date, description, phone_number
 
 insert into room (room_number, room_type, description, price, offer_price, discount, status)
 VALUES
-('292', 'ex', 'eiusmod aliquip', '307,29 €', '$229.44', '10','booked'),
-('224', 'non laboris', 'dolore velit ut et laboris ea do nisi', '90,93 €', '247.22', '10','available'),
-('295', 'excepteur', 'in dolore incididunt elit', '331,00 €', '$158.15', '10','booked'),
-('237', 'officia', 'Lorem', '228,80 €', '$308.40', '10','available'),
-('370', 'sint laborum', 'est in proident enim', '233,57 €', '$152.41', '10','booked'),
-('265','exercitation culpa', 'nostrud', '128,66 €', '$75.28', '10','available'),
-('360', 'sunt', 'dolor minim anim commodo laboris id', '227.09 €', '$295.51', '10','booked'),
-('368', 'officia ad', 'laborum nulla fugiat cupidatat aute labore cillum', '178.38 €', '$94.04', '10','booked'),
-('108', 'ipsum', 'pariatur in sit eu', '75.22 €', '$236.46', '10','available');
+  ('292', 'ex', 'eiusmod aliquip', '307,29 €', '$229.44', '10','booked'),
+  ('224', 'non laboris', 'dolore velit ut et laboris ea do nisi', '90,93 €', '247.22', '10','available'),
+  ('295', 'excepteur', 'in dolore incididunt elit', '331,00 €', '$158.15', '10','booked'),
+  ('237', 'officia', 'Lorem', '228,80 €', '$308.40', '10','available'),
+  ('370', 'sint laborum', 'est in proident enim', '233,57 €', '$152.41', '10','booked'),
+  ('265','exercitation culpa', 'nostrud', '128,66 €', '$75.28', '10','available'),
+  ('360', 'sunt', 'dolor minim anim commodo laboris id', '227.09 €', '$295.51', '10','booked'),
+  ('368', 'officia ad', 'laborum nulla fugiat cupidatat aute labore cillum', '178.38 €', '$94.04', '10','booked'),
+  ('108', 'ipsum', 'pariatur in sit eu', '75.22 €', '$236.46', '10','available');
 
 INSERT into booking (guest, phone_number, order_date, check_in, check_out, special_request, status, room_id) values
-('Bob Johnson', '+1 234-567-8901', '2023-10-02', '2023-10-11', '2023-10-16', 'I\'d like an extra blanket.', 'Check In', 1),
-('Charlie Brown', '+1 345-678-9012', '2023-10-03', '2023-10-12', '2023-10-17', 'Please provide a baby crib.', 'In Progress', 2),
-('Alice Smith', '+1 123-456-7890', '2023-10-03', '2023-10-12', '2023-10-18', '', 'Check Out', 3),
-('David Lee', '+1 456-789-0123', '2023-10-04', '2023-10-13', '2023-10-18', 'I\'d like a bottle of champagne in the room.', 'Check In', 4),
-('Emily Wilson', '+1 567-890-1234', '2023-10-05', '2023-10-14', '2023-10-19', 'I\'d like a bottle of champagne in the room.', 'In Progress', 5),
-('Frank Davis', '+1 678-901-2345', '2023-10-06', '2023-10-15', '2023-10-20', 'Please provide extra blankets.', 'Check Out', 6),
-('Grace Taylor', '+1 789-012-3456', '2023-10-07', '2023-10-16', '2023-10-21', 'Please provide a baby crib.', 'Check In', 7),
-('Hannah Parker', '+1 890-123-4567', '2023-10-08', '2023-10-17', '2023-10-22', 'Please provide extra blankets.', 'Check Out', 8),
-('Isabella Turner', '+1 901-234-5678', '2023-10-09', '2023-10-18', '2023-10-23', 'I\'d like a wake-up call at 7 AM and a daily newspaper.', 'Check In', 1),
-('Jack Harris', '+1 012-345-6789', '2023-10-10', '2023-10-19', '2023-10-24', 'Please provide extra blankets.', 'Check In', 2);
+  ('Bob Johnson', '+1 234-567-8901', '2023-10-02', '2023-10-11', '2023-10-16', 'I\'d like an extra blanket.', 'Check In', 1),
+  ('Charlie Brown', '+1 345-678-9012', '2023-10-03', '2023-10-12', '2023-10-17', 'Please provide a baby crib.', 'In Progress', 2),
+  ('Alice Smith', '+1 123-456-7890', '2023-10-03', '2023-10-12', '2023-10-18', '', 'Check Out', 3),
+  ('David Lee', '+1 456-789-0123', '2023-10-04', '2023-10-13', '2023-10-18', 'I\'d like a bottle of champagne in the room.', 'Check In', 4),
+  ('Emily Wilson', '+1 567-890-1234', '2023-10-05', '2023-10-14', '2023-10-19', 'I\'d like a bottle of champagne in the room.', 'In Progress', 5),
+  ('Frank Davis', '+1 678-901-2345', '2023-10-06', '2023-10-15', '2023-10-20', 'Please provide extra blankets.', 'Check Out', 6),
+  ('Grace Taylor', '+1 789-012-3456', '2023-10-07', '2023-10-16', '2023-10-21', 'Please provide a baby crib.', 'Check In', 7),
+  ('Hannah Parker', '+1 890-123-4567', '2023-10-08', '2023-10-17', '2023-10-22', 'Please provide extra blankets.', 'Check Out', 8),
+  ('Isabella Turner', '+1 901-234-5678', '2023-10-09', '2023-10-18', '2023-10-23', 'I\'d like a wake-up call at 7 AM and a daily newspaper.', 'Check In', 1),
+  ('Jack Harris', '+1 012-345-6789', '2023-10-10', '2023-10-19', '2023-10-24', 'Please provide extra blankets.', 'Check In', 2);
 
 INSERT into photo (photos, room_id) values
 	('https://example.com/room_photos/single_bed_1_medium.jpg', 1),

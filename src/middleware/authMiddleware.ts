@@ -1,5 +1,5 @@
 import { authService } from '../services/loginServices';
-import { NextFunction, Request, Response } from 'express'
+import { NextFunction, Request, Response } from 'express';
 
 export function authMiddleware(req: Request, res: Response, next: NextFunction) {
     try {

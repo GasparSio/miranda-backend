@@ -5,43 +5,67 @@ import { SelectQuery } from '../util/connecionSQL';
 export const contacts = contactsData
 
 async function fetchAll() {
-  const result = await SelectQuery(
-    'select * from contact;')
+  const query = 'select * from contact;';
+  const values: any[] = []; // Array vacío, lo necesito en este caso solo para recibir un 2do parametro
+  const result = await SelectQuery(query, values);
   return result;
 }
 
 async function fetchOne(contactId: string) {
-  const result = await SelectQuery(
-    `select * from contact WHERE id = ${contactId};`)
+  const query = 'select * from contact WHERE id = ?;';
+  const values = [contactId];
+  const result = await SelectQuery(query, values);
   return result;
 }
 
 async function deleteContact(contactId: string) {
-  const result = await SelectQuery(
-    `delete from contact where id = ${contactId};`)
+  const query = 'delete from contact where id = ?;';
+  const values = [contactId];
+  const result = await SelectQuery(query, values);
+  return result;
+}
+
+async function createOneContact(contact: contactsInterface) {
+  const query =
+  `INSERT INTO contact 
+  (full_name, email, phone_number, subject_of_review, review_body, dateTime, isArchived) 
+  values 
+  (?, ?, ?, ?, ?, ?, ?);`
+  
+  const values = [
+    contact.full_name,
+    contact.email,
+    contact.phone_number,
+    contact.subject_of_review,
+    contact.review_body,
+    contact.dateTime,
+    contact.isArchived
+  ];
+
+  const result = await SelectQuery(query, values)
   return result;
 }
 
 async function updateOneContact(contactId: string, update: Partial<contactsInterface>) {
-    // const id = userId.toString()
-	const currentContactIndex = contacts.findIndex((contact) => contact.id === contactId)
-	if (currentContactIndex === -1) throw new Error('User not found')
-	const result = (contacts[currentContactIndex] = {
-		...contacts[currentContactIndex],
-		...update,
-	})
-	return result
-}
+	const query =
+    `UPDATE contact 
+    SET full_name=?, email=?, phone_number=?, subject_of_review=?, review_body=?, dateTime=?, isArchived=?
+    WHERE id = ?;`;
 
-async function createOneContact(contact: contactsInterface) {
-  const initialUsersLength = contacts.length;
-  await contacts.push(contact);
-  if (contacts.length === initialUsersLength) {
-    throw new Error('Error creating a new Contact');
-  }
-  return contact;
-}
+  const values = [
+    update.full_name,
+    update.email,
+    update.phone_number,
+    update.subject_of_review,
+    update.review_body,
+    update.dateTime,
+    update.isArchived,
+    contactId
+  ];
 
+  const result = await SelectQuery(query, values);
+  return result;
+}
 
 export const contactsServices = {
     fetchAll,

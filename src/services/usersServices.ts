@@ -5,43 +5,64 @@ import { SelectQuery } from '../util/connecionSQL';
 export const users = usersData
 
 async function fetchAll() {
-  const result = await SelectQuery(
-    'select * from user;')
+  const query = 'select * from user;'
+  const values: any[] = [];
+  const result = await SelectQuery(query, values)
   return result;
 }
 
 async function fetchOne(userId: string) {
-  const result = await SelectQuery(
-    `select * from user WHERE id = ${userId};`)
+  const query = `select * from user WHERE id = ?;`
+  const values = [userId]
+  const result = await SelectQuery(query, values)
   return result;
 }
 
 async function deleteUser(userId: string) {
-  const result = await SelectQuery(
-    `delete from user where id = ${userId};`)
+  const query = 'delete from contact where id = ?;';
+  const values = [userId];
+  const result = await SelectQuery(query, values);
+  return result;
+}
+
+
+async function createOneUser(user: usersInterface) {
+  const query =
+  `INSERT INTO user 
+  (full_name, email, photo, start_date, description, phone_number, status) 
+  values 
+  (?, ?, ?, ?, ?, ?, ?);`
+  const values = [
+    user.full_name,
+    user.email,
+    user.photo,
+    user.start_date,
+    user.description,
+    user.phone_number,
+    user.status
+  ]
+  const result = await SelectQuery(query, values)
   return result;
 }
 
 async function updateOneUser(userId: string, update: Partial<usersInterface>) {
-  // const id = userId.toString()
-const currentUserIndex = users.findIndex((user) => user.employee_id === userId)
-  if (currentUserIndex === -1) throw new Error('User not found')
-  const result = (users[currentUserIndex] = {
-    ...users[currentUserIndex],
-    ...update,
-  })
-return result
+	const query =
+  `UPDATE user 
+  SET full_name=?, email=?, photo=?, start_date=?, description=?, phone_number=?, status=?
+  WHERE id =?;`
+  const values = [
+    update.full_name,
+    update.email,
+    update.photo,
+    update.start_date,
+    update.description,
+    update.phone_number,
+    update.status,
+    userId
+  ]
+  const result = await SelectQuery(query, values)
+	return result
 }
-
-async function createOneUser(user: usersInterface) {
-    const initialUsersLength = users.length;
-    await users.push(user);
-    if (users.length === initialUsersLength) {
-      throw new Error('Error creating a new User');
-    }
-    return user;
-}
-
 
 export const usersServices = {
     fetchAll,
