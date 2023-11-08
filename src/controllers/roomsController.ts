@@ -1,6 +1,8 @@
 import { Request, Response, Router } from 'express';
 import { roomsInterface } from '../interfaces/roomsInterface';
 import { roomsServices } from '../services/roomsServices';
+import { generateValidateMiddleware } from '../validators/validationMiddleware';
+import { roomSchema } from '../validators/schemas';
 
 export const roomsController = Router();
 
@@ -33,7 +35,9 @@ roomsController.delete("/:roomId", async (req: Request, res: Response) => {
   }
 );
 
-roomsController.post("/", async (req: Request<roomsInterface>, res: Response) => {
+roomsController.post("/", 
+generateValidateMiddleware(roomSchema),
+async (req: Request<{}, {}, roomsInterface>, res: Response) => {
   try {
     const roomsResult = await roomsServices.createOneRoom(req.body);
     res.json(roomsResult);
@@ -43,7 +47,10 @@ roomsController.post("/", async (req: Request<roomsInterface>, res: Response) =>
 }
 );
 
-roomsController.put("/:roomId", async (req: Request,res: Response) => {
+roomsController.put(
+  "/:roomId", 
+  generateValidateMiddleware(roomSchema),
+  async (req: Request,res: Response) => {
     try {
       const roomsResult = await roomsServices.updateOneRoom(req.params.roomId, req.body);
       res.json(roomsResult);

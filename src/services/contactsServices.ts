@@ -28,7 +28,7 @@ async function deleteContact(contactId: string) {
 async function createOneContact(contact: contactsInterface) {
   const query =
   `INSERT INTO contact 
-  (full_name, email, phone_number, subject_of_review, review_body, dateTime, isArchived) 
+  (full_name, email, phone_number, subject_of_review, review_body, dateTime, status) 
   values 
   (?, ?, ?, ?, ?, ?, ?);`
   
@@ -39,7 +39,7 @@ async function createOneContact(contact: contactsInterface) {
     contact.subject_of_review,
     contact.review_body,
     contact.dateTime,
-    contact.isArchived
+    contact.status
   ];
 
   const result = await SelectQuery(query, values)
@@ -49,7 +49,7 @@ async function createOneContact(contact: contactsInterface) {
 async function updateOneContact(contactId: string, update: Partial<contactsInterface>) {
 	const query =
     `UPDATE contact 
-    SET full_name=?, email=?, phone_number=?, subject_of_review=?, review_body=?, dateTime=?, isArchived=?
+    SET full_name=?, email=?, phone_number=?, subject_of_review=?, review_body=?, dateTime=?, status=?
     WHERE id = ?;`;
 
   const values = [
@@ -59,7 +59,7 @@ async function updateOneContact(contactId: string, update: Partial<contactsInter
     update.subject_of_review,
     update.review_body,
     update.dateTime,
-    update.isArchived,
+    update.status,
     contactId
   ];
 

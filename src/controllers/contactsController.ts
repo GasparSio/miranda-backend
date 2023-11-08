@@ -1,6 +1,8 @@
 import { NextFunction, Request, Response, Router } from 'express';
 import { contactsServices } from '../services/contactsServices';
 import { contactsInterface } from '../interfaces/contactsInterface';
+import { generateValidateMiddleware } from '../validators/validationMiddleware';
+import { contactSchema } from '../validators/schemas';
 
 export const contactsController = Router();
 
@@ -33,7 +35,10 @@ contactsController.delete("/:contactId", async (req: Request, res: Response, nex
   }
 );
 
-contactsController.put("/:contactId", async (req: Request,res: Response, next: NextFunction) => {
+contactsController.put(
+  "/:contactId", 
+  generateValidateMiddleware(contactSchema), 
+  async (req: Request,res: Response, next: NextFunction) => {
     try {
       const contactsResult = await contactsServices.updateOneContact(req.params.contactId, req.body);
       res.json(contactsResult);
@@ -43,7 +48,10 @@ contactsController.put("/:contactId", async (req: Request,res: Response, next: N
   }
 );
 
-contactsController.post("/", async (req: Request<contactsInterface>, res: Response, next: NextFunction) => {
+contactsController.post(
+  "/", 
+  generateValidateMiddleware(contactSchema),
+  async (req: Request<{}, {}, contactsInterface>, res: Response, next: NextFunction) => {
     try {
       const contactsResult = await contactsServices.createOneContact(req.body);
       res.json(contactsResult);

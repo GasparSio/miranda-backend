@@ -6,5 +6,5 @@ export interface contactsInterface {
 	subject_of_review: string
 	review_body: string
 	dateTime: string
-	isArchived: string
+	status: string
 }

@@ -1,6 +1,8 @@
 import { NextFunction, Request, Response, Router } from 'express';
 import { bookingsServices } from '../services/bookingsServices';
 import { bookingsInterface } from '../interfaces/bookingsInterface';
+import { generateValidateMiddleware } from '../validators/validationMiddleware';
+import { bookingSchema } from '../validators/schemas';
 
 export const bookingsController = Router();
 
@@ -33,7 +35,10 @@ bookingsController.delete("/:bookingId", async (req: Request, res: Response, nex
   }
 );
 
-bookingsController.put("/:bookingId", async (req: Request,res: Response, next: NextFunction) => {
+bookingsController.put(
+  "/:bookingId", 
+  generateValidateMiddleware(bookingSchema), 
+  async (req: Request, res: Response, next: NextFunction) => {
     try {
       const bookingResult = await bookingsServices.updateOneBooking(req.params.bookingId, req.body);
       res.json(bookingResult);
@@ -43,7 +48,10 @@ bookingsController.put("/:bookingId", async (req: Request,res: Response, next: N
   }
 );
 
-bookingsController.post("/", async (req: Request<bookingsInterface>, res: Response, next: NextFunction) => {
+bookingsController.post(
+  "/",
+  generateValidateMiddleware(bookingSchema),
+  async (req: Request<{}, {}, bookingsInterface>, res: Response, next: NextFunction) => {
     try {
       const bookingsResult = await bookingsServices.createOneBooking(req.body);
       res.json(bookingsResult);
