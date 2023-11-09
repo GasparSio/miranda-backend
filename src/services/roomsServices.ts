@@ -4,7 +4,7 @@ import { roomsInterface } from "../interfaces/roomsInterface";
 export const rooms = roomsData
 
 async function fetchAll() {
-  const query = 'select r.*, GROUP_CONCAT(DISTINCT p.photos) AS all_photos, GROUP_CONCAT(a.amenities) AS all_amenities FROM room r LEFT JOIN photo p ON r.id = p.room_id LEFT JOIN amenities_has_room ah ON r.id = ah.room_id LEFT JOIN amenity a ON ah.amenity_id = a.id GROUP BY r.id;'
+  const query = `SELECT r.*, COALESCE(GROUP_CONCAT(p.photos),'https://picsum.photos/seed/BiBS6X9b/640/480') AS all_photos, COALESCE(GROUP_CONCAT(a.amenities), 'Free WIFI') AS all_amenities FROM room r LEFT JOIN photo p ON r.id = p.room_id LEFT JOIN amenities_has_room ah ON r.id = ah.room_id LEFT JOIN amenity a ON ah.amenity_id = a.id GROUP BY r.id;`
   const values: any[] = [];
   const result = await SelectQuery(query, values)
   return result;

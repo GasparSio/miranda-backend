@@ -151,7 +151,7 @@ VALUES (1, 1), (1, 2), (1, 3), (1, 4), (2, 1), (2, 2), (2, 3), (2, 5), (2, 6), (
 --ROOM
 --fetchAll
 select 
-	r.*, GROUP_CONCAT(DISTINCT p.photos) AS all_photos, GROUP_CONCAT(a.amenities) AS all_amenities
+	r.*, GROUP_CONCAT(DISTINCT p.photos) AS all_photos, COALESCE(GROUP_CONCAT(a.amenities) AS all_amenities, 'Free WIFI')
 	FROM room r 
 	LEFT JOIN photo p ON r.id = p.room_id 
 	LEFT JOIN amenity_has_room ah ON r.id = ah.room_id
