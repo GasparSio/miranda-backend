@@ -187,16 +187,19 @@ const NUM_BOOKINGS: number = 60;
 			FOREIGN KEY (amenity_id) REFERENCES amenity (id), 
 			PRIMARY KEY (room_id, amenity_id));
 		`)
-		for (let index = 0; index < NUM_TOTAL; index++) {
-			const query = `
-			INSERT INTO amenities_has_room (room_id, amenity_id)
-			VALUES (?, ?);
-			`
-		const params = [
-			faker.helpers.rangeToNumber({ min: 1, max: 10 }),
-			faker.helpers.rangeToNumber({ min: 1, max: 10 }),
-		]
-		await ModifyQuery(query, params)
+			
+		for (let index = 1; index <= NUM_ROOMS; index++) {
+			for (
+				let indexAmenity = 1;
+				indexAmenity <= Math.floor(Math.random() * (10 - 1) + 1);
+				indexAmenity++
+			) {
+				const query = faker.helpers.arrayElement([
+					`INSERT INTO amenities_has_room (room_id, amenity_id) VALUES (?, ?);`,
+				])
+				const params = [index, indexAmenity]
+				await ModifyQuery(query, params)
+			}
 	}
 		console.log("amenities_has_room seeded");
 
