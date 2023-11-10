@@ -49,7 +49,7 @@ const NUM_BOOKINGS: number = 60;
 			order_date DATE NOT NULL,
 			check_in DATE NULL,
 			check_out DATE NULL,
-			special_request VARCHAR(255) NULL,
+			special_request LONGTEXT NULL,
 			status VARCHAR(45) NOT NULL,
 			room_id INT NOT NULL,
 			PRIMARY KEY (id),
@@ -81,7 +81,7 @@ const NUM_BOOKINGS: number = 60;
 			email VARCHAR(255) NOT NULL,
 			photo VARCHAR(255) NOT NULL,
 			start_date DATE NOT NULL,
-			description VARCHAR(255) NOT NULL,
+			description LONGTEXT NOT NULL,
 			phone_number VARCHAR(45) NOT NULL,
 			status VARCHAR(45) NOT NULL,
 			PRIMARY KEY (id));
@@ -109,8 +109,8 @@ const NUM_BOOKINGS: number = 60;
 			full_name VARCHAR(255) NOT NULL,
 			email VARCHAR(255) NOT NULL,
 			phone_number VARCHAR(45) NOT NULL,
-			subject_of_review VARCHAR(255) NOT NULL,
-			review_body VARCHAR(255) NOT NULL,
+			subject_of_review LONGTEXT NOT NULL,
+			review_body LONGTEXT NOT NULL,
 			dateTime DATETIME NOT NULL,
 			status VARCHAR(45) NOT NULL,
 			PRIMARY KEY (id));
