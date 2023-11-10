@@ -5,14 +5,27 @@ import { SelectQuery } from '../util/connecionSQL';
 export const bookings = bookingsData
 
 async function fetchAll() {
-    const query = 'select b.*, r.room_number, r.room_type, GROUP_CONCAT(p.photos) AS all_photos FROM booking b LEFT JOIN room r ON b.room_id = r.id LEFT JOIN photo p ON r.id = p.room_id GROUP BY b.id;'
+    const query = `
+    select b.*, r.room_number, r.room_type, 
+    GROUP_CONCAT(p.photos) AS all_photos 
+    FROM booking b 
+    LEFT JOIN room r 
+    ON b.room_id = r.id 
+    LEFT JOIN photo p ON r.id = p.room_id GROUP BY b.id;`
     const values: any[] = [];
     const result = await SelectQuery(query, values)
     return result;
 }
 
 async function fetchOne(bookingId: string) {
-    const query = `select b.*, r.room_number, r.room_type, GROUP_CONCAT(p.photos) AS all_photos FROM booking b LEFT JOIN room r ON b.room_id = r.id LEFT JOIN photo p ON r.id = p.room_id WHERE b.id =? GROUP BY b.id;`
+    const query = `
+    select b.*, r.room_number, r.room_type, 
+    GROUP_CONCAT(p.photos) AS all_photos 
+    FROM booking b 
+    LEFT JOIN room r 
+    ON b.room_id = r.id 
+    LEFT JOIN photo p ON r.id = p.room_id 
+    WHERE b.id =? GROUP BY b.id;`
     const values = [bookingId]
     const result = await SelectQuery(query, values)
     return result;
