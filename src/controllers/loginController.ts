@@ -3,11 +3,11 @@ import { authService } from '../services/loginServices';
 
 export const loginController = Router();
 
-loginController.post("/", async (req: Request<{ username: string; email: string }>, res: Response, next: NextFunction) => {
+loginController.post("/", async (req: Request<{ email: string; password: string }>, res: Response, next: NextFunction) => {
     try {
-        const username = req.body.username;
         const email = req.body.email;
-        const result = await authService.login(username, email);
+        const password = req.body.password;
+        const result = await authService.login(email, password);
         res.json(result);
     } catch (error) {
         next(error)

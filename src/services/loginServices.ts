@@ -1,21 +1,29 @@
 import jwt from "jsonwebtoken";
 import 'dotenv/config';
+import { User } from "../models/usersModel";
 
-const defaultUserEmail = {
-    username: "gaspar",
-    email: "sio@gmail.com",
-};
+// const defaultUserEmail = {
+//     email: "sio.gaspar@gmail.com",
+//     password: "admin",
+// };
 
 const secret: string = process.env.SECRET_KEY || '';
 
-async function login(username: string, email: string) {
-    if (username === defaultUserEmail.username && email === defaultUserEmail.email) return signJWT({ username })
-    throw new Error('Wrong username or email!')
+async function login(email: string, password: string) {
+    const result = await User.findOne({email: email, password: password})
+    if(!result){
+        throw new Error('User not found')
+    }
+    return signJWT({email, password});
 }
+// async function login(email: string, password: string) {
+//     if (email === defaultUserEmail.email && password === defaultUserEmail.password) return signJWT({ email })
+//     throw new Error('Wrong username or email!')
+// }
   
-function signJWT(payload: { username: string }) {
+function signJWT(payload: { email: string , password: string}) {
     // Sign the jwt token
-    const token = jwt.sign(payload, secret);
+    const token = jwt.sign(payload, secret, {expiresIn: '10y'});
     return { payload, token };
 }
   

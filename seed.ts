@@ -16,7 +16,8 @@ const NUM_BOOKINGS: number = 40;
 const server: string = (process.argv.includes("atlas") ? process.env.ATLAS_SERVER : process.env.MONGO_URL) || '';
 const MONGO_URL: string = process.env.MONGO_URL || "";
 const databaseName: string = process.env.DB_NAME || "";
-const roomType = ["Double Superior", "Single", "Deluxe", "Suite", "Imperial", "Double"];
+const roomType = ["Double Superior", "Single Room", "Deluxe", "Suite", "Imperial", "Double Room"];
+const roomStatus = ["Available", "Booked"];
 
 async function seedDB(){
     try {
@@ -29,6 +30,8 @@ async function seedDB(){
         Room.collection.drop()
         Contact.collection.drop()
         User.collection.drop()
+        console.log('Drop Tables');
+        console.log('Create tables');
         
         const rooms: roomsInterface[] = []
         for (let i = 0; i < NUM_ROOMS; i++) {
@@ -49,8 +52,8 @@ async function seedDB(){
                     "Nice Views"
                 ],
                 price: faker.number.int({ min: 30, max: 3000 }),
-                offerprice: faker.number.int({ min: 30, max: 3000 }),
-                status: "available",
+                offerprice: faker.number.int({ min: 150, max: 800 }),
+                status: roomStatus[faker.number.int({ min: 0, max: 2 })],
             }
             
             const room: any = await Room.create(roomData);
