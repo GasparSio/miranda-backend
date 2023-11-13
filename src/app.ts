@@ -11,11 +11,14 @@ import mongoose from 'mongoose';
 
 // const mongoUrl: string = process.env.MONGO_URL || '';
 const ATLAS_SERVER: string = process.env.ATLAS_SERVER || '';
+const URL_LOCAL: string = process.env.ATLAS_SERVER || '';
+const MONGO_URL: string = process.env.MONGO_URL || '';
+const databaseName: string = process.env.DB_NAME || "";
 
 (async () => {
     try {
-        await mongoose.connect(ATLAS_SERVER, {
-            dbName: 'Miranda_API',
+        await mongoose.connect(MONGO_URL, {
+            dbName: databaseName,
         })
         console.log('Connected to Mongo')
     } catch (error) {

@@ -10,22 +10,26 @@ import { Booking } from './src/models/bookingsModel';
 import { User } from './src/models/usersModel';
 import { Contact } from './src/models/contactsModel';
 
-
 const MAXNUM: number = 10;
 const NUM_ROOMS: number = 10;
 const NUM_BOOKINGS: number = 40;
-// const server: string = (process.argv.includes("atlas") ? process.env.ATLAS_SERVER : process.env.MONGO_URL) || '';
+const server: string = (process.argv.includes("atlas") ? process.env.ATLAS_SERVER : process.env.MONGO_URL) || '';
+const MONGO_URL: string = process.env.MONGO_URL || "";
 const databaseName: string = process.env.DB_NAME || "";
 const roomType = ["Double Superior", "Single", "Deluxe", "Suite", "Imperial", "Double"];
 
 async function seedDB(){
     try {
-        await mongoose.connect(process.env.ATLAS_SERVER as string, {
+        await mongoose.connect(MONGO_URL, {
             dbName: databaseName,
         })
         console.log('connected');
 
-
+        Booking.collection.drop()
+        Room.collection.drop()
+        Contact.collection.drop()
+        User.collection.drop()
+        
         const rooms: roomsInterface[] = []
         for (let i = 0; i < NUM_ROOMS; i++) {
 
@@ -80,6 +84,16 @@ async function seedDB(){
         }
         console.log("Bookings seeded");
 
+        await User.create({
+            full_name: 'Gaspar Sio',
+            email: 'sio.gaspar@gmail.com',
+            password: 'admin',
+            photo: '',
+            start_date: '2023-01-06',
+            description: 'CEO MANAGER',
+            phone_number: '+35 655 123 456',
+            status: 'active',
+        })
 
         const users: usersInterface[] = []
         for (let i = 0; i < MAXNUM; i++) {
@@ -92,6 +106,7 @@ async function seedDB(){
                 start_date: faker.date.anytime().toString(),
                 description: faker.lorem.sentence({ min: 2, max: 20 }),
                 phone_number: faker.phone.number(),
+                password: faker.internet.password(),
                 status: "active",
             }
             
@@ -120,7 +135,6 @@ async function seedDB(){
             contacts.push(contact);
         }
         console.log("Contacts seeded");
-
 
     } catch (error) {
         throw new Error(`${error}`)
