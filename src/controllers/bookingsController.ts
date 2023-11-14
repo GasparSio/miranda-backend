@@ -7,7 +7,7 @@ export const bookingsController = Router();
 bookingsController.get('/', async (_req: Request, res: Response, next: NextFunction) => {
     try {
         const bookingsResult = await bookingsServices.fetchAll()
-        res.json({bookingsResult})
+        res.json(bookingsResult)
     } catch (error) {
         next(error)  
     }

@@ -1,5 +1,5 @@
 export interface usersInterface {
-    employee_id: string
+    employee_id?: string
     full_name: string
     email: string
     photo: string

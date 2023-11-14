@@ -1,6 +1,6 @@
 export interface bookingsInterface {
-	id: string
-	room_id: string
+	_id?: string
+	room_id?: string
 	guest: string
 	phone_number: string
 	order_date: string

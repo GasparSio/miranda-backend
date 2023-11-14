@@ -2,7 +2,6 @@ import mongoose from "mongoose";
 import { usersInterface } from "../interfaces/usersInterface";
 
 const usersSchema = new mongoose.Schema<usersInterface>({
-    "employee_id": { type: String },
     "full_name": { type: String, required: true },
     "email": { type: String, required: true },
     "photo": { type: String },

@@ -18,6 +18,8 @@ const MONGO_URL: string = process.env.MONGO_URL || "";
 const databaseName: string = process.env.DB_NAME || "";
 const roomType = ["Double Superior", "Single Room", "Deluxe", "Suite", "Imperial", "Double Room"];
 const roomStatus = ["Available", "Booked"];
+const bookingStatus = ["Check In", "Check Out", "In Progress"];
+const contactStatus = ["Archived", "Not Archived"];
 
 async function seedDB(){
     try {
@@ -33,13 +35,13 @@ async function seedDB(){
         console.log('Drop Tables');
         console.log('Create tables');
         
+
+
         const rooms: roomsInterface[] = []
         for (let i = 0; i < NUM_ROOMS; i++) {
-
             const roomData: roomsInterface = {
                 photo: faker.image.urlPicsumPhotos(),
                 roomNumber: faker.string.numeric(),
-                id: faker.string.uuid(),
                 bedType: roomType[faker.number.int({ min: 0, max: 5 })],
                 facilities: [
                     "24-Hour Guard",
@@ -51,8 +53,7 @@ async function seedDB(){
                     "Jacuzzi",
                     "Nice Views"
                 ],
-                price: faker.number.int({ min: 30, max: 3000 }),
-                offerprice: faker.number.int({ min: 150, max: 800 }),
+                price: faker.number.int({ min: 80, max: 400 }),
                 status: roomStatus[faker.number.int({ min: 0, max: 2 })],
             }
             
@@ -63,22 +64,38 @@ async function seedDB(){
 
         const bookings: bookingsInterface[] = []
         const index = Math.floor(Math.random() * NUM_ROOMS);
-        const roomId = rooms[index].id;
-
+        const roomId = rooms[index]._id;
+        
         for (let i = 0; i < NUM_BOOKINGS; i++) {
+            const startDate = new Date();
+            startDate.setFullYear(startDate.getFullYear() - 1);
+            const orderDate = faker.date.between({ from: startDate, to: new Date() });
+            const checkIn = faker.date.between({ from: orderDate, to: new Date() });
+            const checkOut = faker.date.between({ from: checkIn, to: new Date() });
 
             const bookingData: bookingsInterface = {
-                id: faker.string.uuid(),
                 room_id: roomId,
                 guest: faker.person.fullName(),
                 phone_number: faker.phone.number(),
-                order_date: faker.date.anytime().toString(),
-                check_in: faker.date.anytime().toString(),
-                check_out: faker.date.anytime().toString(),
+                order_date: orderDate.toLocaleDateString('en-US', {
+                    year: 'numeric',
+                    month: 'short',
+                    day: 'numeric'
+                }),
+                check_in: checkIn.toLocaleDateString('en-US', {
+                    year: 'numeric',
+                    month: 'short',
+                    day: 'numeric'
+                }),
+                check_out: checkOut.toLocaleDateString('en-US', {
+                    year: 'numeric',
+                    month: 'short',
+                    day: 'numeric'
+                }),
                 special_request: faker.lorem.sentence({ min: 2, max: 20 }),
                 room_type: roomType[faker.number.int({ min: 0, max: 5 })],
                 room_number: faker.string.numeric(),
-                status: "available",
+                status: bookingStatus[faker.number.int({ min: 0, max: 3 })],
                 photos: faker.image.urlPicsumPhotos(),
             }
             
@@ -102,7 +119,6 @@ async function seedDB(){
         for (let i = 0; i < MAXNUM; i++) {
 
             const userData: usersInterface = {
-                employee_id: faker.string.uuid(),
                 full_name: faker.person.fullName(),
                 email: faker.internet.email(),
                 photo: faker.image.urlPicsumPhotos(),
@@ -121,17 +137,20 @@ async function seedDB(){
 
         const contacts: contactsInterface[] = []
         for (let i = 0; i < MAXNUM; i++) {
-
+            const recentDate = faker.date.recent();
             const contactData: contactsInterface = {
-                id: faker.string.uuid(),
                 full_name: faker.person.fullName(),
                 email: faker.internet.email(),
                 phone_number: faker.phone.number(),
                 subject_of_review: faker.lorem.sentence({ min: 1, max: 8 }),
                 review_body: faker.lorem.sentence({ min: 2, max: 20 }),
-                date: faker.date.anytime().toString(),
+                date: new Date(recentDate).toLocaleDateString('en-US', {
+                    year: 'numeric',
+                    month: 'short',
+                    day: 'numeric'
+                }).replace(/(\d+)([^\d]+)(\d+)([^\d]+)(\d+)/, '$5$2$1$4$3'),
                 dateTime: faker.date.anytime().toString(),
-                isArchived: "archived",
+                status: 'Not Archived',
             }
             
             const contact: any = await Contact.create(contactData);
