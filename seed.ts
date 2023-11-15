@@ -19,7 +19,7 @@ const databaseName: string = process.env.DB_NAME || "";
 const roomType = ["Double Superior", "Single Room", "Deluxe", "Suite", "Imperial", "Double Room"];
 const roomStatus = ["Available", "Booked"];
 const bookingStatus = ["Check In", "Check Out", "In Progress"];
-const contactStatus = ["Archived", "Not Archived"];
+const usersStatus = ["Active", "Not Active"];
 
 async function seedDB(){
     try {
@@ -117,16 +117,20 @@ async function seedDB(){
 
         const users: usersInterface[] = []
         for (let i = 0; i < MAXNUM; i++) {
-
+            const recentDate = faker.date.recent();
             const userData: usersInterface = {
                 full_name: faker.person.fullName(),
                 email: faker.internet.email(),
                 photo: faker.image.urlPicsumPhotos(),
-                start_date: faker.date.anytime().toString(),
+                start_date: new Date(recentDate).toLocaleDateString('en-US', {
+                    year: 'numeric',
+                    month: 'short',
+                    day: 'numeric'
+                }).replace(/(\d+)([^\d]+)(\d+)([^\d]+)(\d+)/, '$5$2$1$4$3'),
                 description: faker.lorem.sentence({ min: 2, max: 20 }),
                 phone_number: faker.phone.number(),
                 password: faker.internet.password(),
-                status: "active",
+                status: usersStatus[faker.number.int({ min: 0, max: 1 })],
             }
             
             const user: any = await User.create(userData);

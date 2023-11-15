@@ -9,7 +9,7 @@ const usersSchema = new mongoose.Schema<usersInterface>({
     "description": { type: String, required: true },
     "phone_number": { type: String, required: true },
     "password": { type: String, required: true },
-    "status": { type: String, required: true },
+    "status": { type: String },
 })
 
 export const User = mongoose.model('User', usersSchema);

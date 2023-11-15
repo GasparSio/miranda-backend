@@ -7,5 +7,5 @@ export interface usersInterface {
     description: string
     phone_number: string
     password: string
-    status: string
+    status?: string
 }
