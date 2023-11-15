@@ -10,9 +10,9 @@ import { Booking } from './src/models/bookingsModel';
 import { User } from './src/models/usersModel';
 import { Contact } from './src/models/contactsModel';
 
-const MAXNUM: number = 10;
-const NUM_ROOMS: number = 10;
-const NUM_BOOKINGS: number = 40;
+const MAXNUM: number = 40;
+const NUM_ROOMS: number = 40;
+const NUM_BOOKINGS: number = 80;
 const server: string = (process.argv.includes("atlas") ? process.env.ATLAS_SERVER : process.env.MONGO_URL) || '';
 const MONGO_URL: string = process.env.MONGO_URL || "";
 const databaseName: string = process.env.DB_NAME || "";
