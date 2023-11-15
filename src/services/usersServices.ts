@@ -1,6 +1,6 @@
 import { usersInterface } from "../interfaces/usersInterface";
 import { User } from '../models/usersModel';
-
+import  bcrypt  from 'bcryptjs';
 
 async function fetchAll() {
   const usersResult = await User.find()
@@ -33,6 +33,7 @@ const userResult = await User.findByIdAndUpdate(userId, update)
 }
 
 async function createOneUser(user: usersInterface) {
+    user.password = bcrypt.hashSync(user.password || '', 10)
     const userResult = await User.create(user);
     if (!userResult) {
       throw new Error('Error creating a new User');

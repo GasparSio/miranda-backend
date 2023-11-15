@@ -1,29 +1,33 @@
 import jwt from "jsonwebtoken";
 import 'dotenv/config';
 import { User } from "../models/usersModel";
-
-// const defaultUserEmail = {
-//     email: "sio.gaspar@gmail.com",
-//     password: "admin",
-// };
+import  bcrypt  from 'bcryptjs';
 
 const secret: string = process.env.SECRET_KEY || '';
 
 async function login(email: string, password: string) {
-    const result = await User.findOne({email: email, password: password})
-    if(!result){
-        throw new Error('User not found')
+    try {
+        const result = await User.findOne({email: email})
+        if(!result) {
+            throw new Error('Users not found')
+        } 
+        const passwordMatch = bcrypt.compare(password, result.password || '')
+        if(!passwordMatch){
+            throw new Error('email or password incorrect')
+        }
+        return signJWT({email});
+    } catch (error) {
+        throw new Error('Authentication failed');
     }
-    return signJWT({email, password});
 }
 // async function login(email: string, password: string) {
 //     if (email === defaultUserEmail.email && password === defaultUserEmail.password) return signJWT({ email })
 //     throw new Error('Wrong username or email!')
 // }
-  
-function signJWT(payload: { email: string , password: string}) {
+
+function signJWT(payload: { email: string}) {
     // Sign the jwt token
-    const token = jwt.sign(payload, secret, {expiresIn: '10y'});
+    const token = jwt.sign(payload, secret, {expiresIn: '10h'});
     return { payload, token };
 }
   
