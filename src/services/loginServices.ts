@@ -8,10 +8,14 @@ const secret: string = process.env.SECRET_KEY || '';
 async function login(email: string, password: string) {
     try {
         const result = await User.findOne({email: email})
+        console.log('usuario', result);
+        
         if(!result) {
             throw new Error('Users not found')
         } 
-        const passwordMatch = bcrypt.compare(password, result.password || '')
+        const passwordMatch = await bcrypt.compare(password, result.password || '')
+        console.log('passwordMatch', passwordMatch);
+        
         if(!passwordMatch){
             throw new Error('email or password incorrect')
         }

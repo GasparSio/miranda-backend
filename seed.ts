@@ -103,11 +103,11 @@ async function seedDB(){
             bookings.push(booking);
         }
         console.log("Bookings seeded");
-
+        //password: admin
         await User.create({
             full_name: 'Gaspar Sio',
             email: 'sio.gaspar@gmail.com',
-            password: 'admin',
+            password: '$2a$10$5B9A9DMF5DDoW1Rg8b71Lu2u47s02RleKdPpQ8jxG3Id8YDz/ZpFG',
             photo: '',
             start_date: '2023-01-06',
             description: 'CEO MANAGER',
