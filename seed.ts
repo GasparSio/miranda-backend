@@ -13,8 +13,8 @@ import { Contact } from './src/models/contactsModel';
 const MAXNUM: number = 40;
 const NUM_ROOMS: number = 40;
 const NUM_BOOKINGS: number = 80;
-const server: string = (process.argv.includes("atlas") ? process.env.ATLAS_SERVER : process.env.MONGO_URL) || '';
-const MONGO_URL: string = process.env.MONGO_URL || "";
+// const server: string = (process.argv.includes("atlas") ? process.env.ATLAS_SERVER : process.env.MONGO_URL) || '';
+const DB_URL: string = process.env.DB_URL || "";
 const databaseName: string = process.env.DB_NAME || "";
 const roomType = ["Double Superior", "Single Room", "Deluxe", "Suite", "Imperial", "Double Room"];
 const roomStatus = ["Available", "Booked"];
@@ -23,7 +23,7 @@ const usersStatus = ["Active", "Not Active"];
 
 async function seedDB(){
     try {
-        await mongoose.connect(MONGO_URL, {
+        await mongoose.connect(DB_URL, {
             dbName: databaseName,
         })
         console.log('connected');
