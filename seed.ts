@@ -4,8 +4,8 @@ import { ModifyQuery, disconnect} from './src/util/connecionSQL';
 
 
 const NUM_TOTAL: number = 10;
-const NUM_ROOMS: number = 10;
-const NUM_BOOKINGS: number = 60;
+const NUM_ROOMS: number = 40;
+const NUM_BOOKINGS: number = 80;
 
 (async () => {
 	try {
@@ -31,7 +31,7 @@ const NUM_BOOKINGS: number = 60;
 				faker.helpers.rangeToNumber({ min: 100, max: 900 }),
 				faker.helpers.arrayElement(['Single Bed', 'Double Bed', 'Double Superior', 'Suite', ]),
 				faker.lorem.sentence(),
-				faker.helpers.rangeToNumber({ min: 100, max: 1000 }),
+				faker.helpers.rangeToNumber({ min: 100, max: 399 }),
 				faker.helpers.arrayElement([true, false]),
 				faker.helpers.arrayElement([0, 5, 10, 20]),
 				faker.helpers.arrayElement(['Available', 'Booked']),
@@ -56,15 +56,37 @@ const NUM_BOOKINGS: number = 60;
 			FOREIGN KEY (room_id) REFERENCES room (id) ON DELETE CASCADE ON UPDATE CASCADE);
 		`)
 		for (let index = 0; index < NUM_BOOKINGS; index++) {
+			const startDate = new Date();
+			startDate.setFullYear(startDate.getFullYear() - 1);
+
+			const orderDate = faker.date.between({ from: startDate, to: new Date() });
+
+			// Generar una fecha de check-in posterior a la fecha de reserva
+			const minCheckInDate = new Date(orderDate);
+			const maxCheckInDate = new Date(); // Puedes ajustar esto según tus necesidades
+
+			const checkIn = faker.date.between({ from: minCheckInDate, to: maxCheckInDate });
+
+			// Generar una fecha de check-out posterior a la fecha de check-in
+			const minCheckOutDate = new Date(checkIn);
+			const maxCheckOutDate = new Date(); // Puedes ajustar esto según tus necesidades
+
+			const checkOut = faker.date.between({ from: minCheckOutDate, to: maxCheckOutDate });
+
+			// Resto del código...
+
+			const orderDateString = orderDate.toISOString().split('T')[0];
+			const checkInDateString = checkIn.toISOString().split('T')[0];
+			const checkOutDateString = checkOut.toISOString().split('T')[0];
 			const room_id = Math.floor((Math.random() * NUM_ROOMS) + 1);
 			const query = `INSERT INTO booking (guest, phone_number, order_date, check_in, check_out, special_request, status, room_id)
 				VALUES (?, ?, ?, ?, ?, ?, ?, ?);`
 			const params = [
 				faker.person.fullName(),
 				faker.phone.number(),
-				faker.date.anytime(),
-				faker.date.anytime(),
-				faker.date.anytime(),
+				orderDateString,
+				checkInDateString,
+				checkOutDateString,
 				faker.lorem.sentence({ min: 2, max: 20 }),
 				faker.helpers.arrayElement(['Check In', 'Check Out', 'In Progress']),
 				room_id
