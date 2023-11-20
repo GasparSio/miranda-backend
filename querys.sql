@@ -87,17 +87,6 @@ insert into contact (full_name, email, phone_number, subject_of_review, review_b
 	('Isaac Lopez', 'isaac.lopez@example.com', '555-999-1111', 'Great Dining Experience', 'I had a great dining experience at this hotel\'s restaurant. The food was delicious, and the staff was knowledgeable about wine pairings. The atmosphere was perfect for a romantic dinner.', '2023-10-03 19:30:00', 'false'),
 	('Julia Adams', 'julia.adams@example.com', '555-456-7890', 'Exceptional Staff', 'The staff at this hotel were exceptional. They made me feel like a VIP from the moment I arrived. Whether it was the concierge arranging a city tour or the housekeeping team ensuring my room was spotless, their service was top-notch.', '2023-10-04 16:00:00', 'false');
 
-insert into room (room_number, room_type, description, price, offer_price, discount, status)
-VALUES
-('292', 'ex', 'eiusmod aliquip', '307,29 €', '$229.44', '10','booked'),
-('224', 'non laboris', 'dolore velit ut et laboris ea do nisi', '90,93 €', '247.22', '10','available'),
-('295', 'excepteur', 'in dolore incididunt elit', '331,00 €', '$158.15', '10','booked'),
-('237', 'officia', 'Lorem', '228,80 €', '$308.40', '10','available'),
-('370', 'sint laborum', 'est in proident enim', '233,57 €', '$152.41', '10','booked'),
-('265','exercitation culpa', 'nostrud', '128,66 €', '$75.28', '10','available'),
-('360', 'sunt', 'dolor minim anim commodo laboris id', '227.09 €', '$295.51', '10','booked'),
-('368', 'officia ad', 'laborum nulla fugiat cupidatat aute labore cillum', '178.38 €', '$94.04', '10','booked'),
-('108', 'ipsum', 'pariatur in sit eu', '75.22 €', '$236.46', '10','available');
 
 insert into user (full_name, email, photo, start_date, description, phone_number, status) values
 	('John Doe', 'john.doe@example.com', 'https://robohash.org/JohnDoe.png?set=any', '2020-05-15', 'Front Desk Manager', '+1 (123) 456-7890', 'active'),

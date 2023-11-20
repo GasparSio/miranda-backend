@@ -6,7 +6,8 @@ const password: string = process.env.SECRET_SQL_PASSWORD || '';
 const database: string = process.env.DATABASE || '';
 
 const access: PoolOptions  = {
-    host: 'localhost',
+    port: 33061,
+    host: '127.0.0.1',
     user: user,
     database: database,
     password: password,
