@@ -213,4 +213,4 @@ delete from user where id = 10;
 --updateOne
 update user
 	SET full_name = 'John Doe', email = 'john.doe@example.com', photo = 'https://robohash.org/JohnDoe.png?set=any', start_date = '2020-05-15', description = 'Front Desk Manager', phone_number = '+1 (123) 456-7890', status = 'active'
-    WHERE id = 5;
+  WHERE id = 5;

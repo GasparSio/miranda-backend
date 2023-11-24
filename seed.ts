@@ -4,8 +4,8 @@ import { ModifyQuery, disconnect} from './src/util/connecionSQL';
 
 
 const NUM_TOTAL: number = 10;
-const NUM_ROOMS: number = 40;
-const NUM_BOOKINGS: number = 80;
+const NUM_ROOMS: number = 300;
+const NUM_BOOKINGS: number = 600;
 
 (async () => {
 	try {
@@ -46,47 +46,31 @@ const NUM_BOOKINGS: number = 80;
 			id INT NOT NULL AUTO_INCREMENT,
 			guest VARCHAR(255) NOT NULL,
 			phone_number VARCHAR(45) NULL,
-			order_date DATE NOT NULL,
+			email VARCHAR(255) NOT NULL,
+			order_date DATE DEFAULT (CURRENT_DATE),
 			check_in DATE NULL,
 			check_out DATE NULL,
 			special_request LONGTEXT NULL,
-			status VARCHAR(45) NOT NULL,
+			status VARCHAR(45) DEFAULT 'Check In',
 			room_id INT NOT NULL,
 			PRIMARY KEY (id),
 			FOREIGN KEY (room_id) REFERENCES room (id) ON DELETE CASCADE ON UPDATE CASCADE);
 		`)
 		for (let index = 0; index < NUM_BOOKINGS; index++) {
-			const startDate = new Date();
-			startDate.setFullYear(startDate.getFullYear() - 1);
+			const date = faker.date.between({ from: '2023-11-22T00:00:00.000Z', to: '2023-12-01T00:00:00.000Z' });
+			const date2 = faker.date.between({ from: date, to: '2024-01-30T00:00:00.000Z' });
+			const date3 = faker.date.between({ from: date2, to: '2024-01-31T00:00:00.000Z' });
 
-			const orderDate = faker.date.between({ from: startDate, to: new Date() });
-
-			// Generar una fecha de check-in posterior a la fecha de reserva
-			const minCheckInDate = new Date(orderDate);
-			const maxCheckInDate = new Date(); // Puedes ajustar esto según tus necesidades
-
-			const checkIn = faker.date.between({ from: minCheckInDate, to: maxCheckInDate });
-
-			// Generar una fecha de check-out posterior a la fecha de check-in
-			const minCheckOutDate = new Date(checkIn);
-			const maxCheckOutDate = new Date(); // Puedes ajustar esto según tus necesidades
-
-			const checkOut = faker.date.between({ from: minCheckOutDate, to: maxCheckOutDate });
-
-			// Resto del código...
-
-			const orderDateString = orderDate.toISOString().split('T')[0];
-			const checkInDateString = checkIn.toISOString().split('T')[0];
-			const checkOutDateString = checkOut.toISOString().split('T')[0];
 			const room_id = Math.floor((Math.random() * NUM_ROOMS) + 1);
-			const query = `INSERT INTO booking (guest, phone_number, order_date, check_in, check_out, special_request, status, room_id)
-				VALUES (?, ?, ?, ?, ?, ?, ?, ?);`
+			const query = `INSERT INTO booking (guest, phone_number, email, order_date, check_in, check_out, special_request, status, room_id)
+				VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?);`
 			const params = [
 				faker.person.fullName(),
 				faker.phone.number(),
-				orderDateString,
-				checkInDateString,
-				checkOutDateString,
+				faker.internet.email(),
+				date.toISOString().slice(0, 10),
+				date2.toISOString().slice(0, 10),
+				date3.toISOString().slice(0, 10),
 				faker.lorem.sentence({ min: 2, max: 20 }),
 				faker.helpers.arrayElement(['Check In', 'Check Out', 'In Progress']),
 				room_id
@@ -133,8 +117,8 @@ const NUM_BOOKINGS: number = 80;
 			phone_number VARCHAR(45) NOT NULL,
 			subject_of_review LONGTEXT NOT NULL,
 			review_body LONGTEXT NOT NULL,
-			dateTime DATETIME NOT NULL,
-			status VARCHAR(45) NOT NULL,
+			dateTime DATE DEFAULT (CURRENT_DATE),
+			status VARCHAR(255) DEFAULT 'Not Archived',
 			PRIMARY KEY (id));
 		`)
 		for (let index = 0; index < NUM_TOTAL; index++) {
@@ -146,7 +130,7 @@ const NUM_BOOKINGS: number = 80;
 				faker.phone.number(),
 				faker.lorem.sentence({ min: 1, max: 8 }),
 				faker.lorem.sentence({ min: 2, max: 20 }),
-				faker.date.anytime(),
+				faker.date.recent(),
 				faker.helpers.arrayElement(['Archived', 'Not Archived']),
 			]
 			await ModifyQuery(query, params)
@@ -186,19 +170,21 @@ const NUM_BOOKINGS: number = 80;
 		await ModifyQuery(
 			`INSERT INTO amenity (amenities)
 			VALUES 
-			('Free Wifi'),
-			('24-Hour Guard'),
+			('High speed WiFi'),
+			('24/7 Online Support'),
 			('Air Conditioner'),
-			('Television'),
+			('Shop near'),
 			('Towels'),
-			('Mini Bar'),
-			('Jacuzzi'),
-			('Ping Pong Table'),
-			('More space'),
-			('Nice Views');`
+			('Cleaning'),
+			('Breakfast'),
+			('Grocery'),
+			('Extra bed'),
+			('Kitchen'),
+			('Shower');`
 		)
 			
 		console.log("amenities seeded");
+
 
 
 		await ModifyQuery(`
@@ -209,19 +195,26 @@ const NUM_BOOKINGS: number = 80;
 			FOREIGN KEY (amenity_id) REFERENCES amenity (id), 
 			PRIMARY KEY (room_id, amenity_id));
 		`)
-			
+		const amenitiesList = [
+			'High speed WiFi',
+			'24/7 Online Support',
+			'Air Conditioner',
+			'Shop near',
+			'Towels',
+			'Cleaning',
+			'Breakfast',
+			'Grocery',
+			'Extra bed',
+			'Kitchen',
+			'Shower'
+		];
 		for (let index = 1; index <= NUM_ROOMS; index++) {
-			for (
-				let indexAmenity = 1;
-				indexAmenity <= Math.floor(Math.random() * (10 - 1) + 1);
-				indexAmenity++
-			) {
-				const query = faker.helpers.arrayElement([
-					`INSERT INTO amenities_has_room (room_id, amenity_id) VALUES (?, ?);`,
-				])
-				const params = [index, indexAmenity]
-				await ModifyQuery(query, params)
-			}
+			const selectedAmenities = faker.helpers.shuffle(amenitiesList).slice(0, 7);
+			for (let i = 0; i < selectedAmenities.length; i++) {
+			const query = `INSERT INTO amenities_has_room (room_id, amenity_id) VALUES (?, ?);`;
+			const params = [index, amenitiesList.indexOf(selectedAmenities[i]) + 1];
+			await ModifyQuery(query, params);
+   		}
 	}
 		console.log("amenities_has_room seeded");
 
