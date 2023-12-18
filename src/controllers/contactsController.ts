@@ -7,7 +7,7 @@ export const contactsController = Router();
 contactsController.get('/', async (_req: Request, res: Response, next: NextFunction) => {
     try {
         const contactsResult = await contactsServices.fetchAll()
-        res.json({contactsResult})
+        res.json(contactsResult)
     } catch (error) {
         next(error)    
     }
@@ -33,7 +33,7 @@ contactsController.delete("/:contactId", async (req: Request, res: Response, nex
   }
 );
 
-contactsController.put("/:contactId", async (req: Request,res: Response, next: NextFunction) => {
+contactsController.put("/:contactId", async (req: Request<{contactId: string}, Partial<contactsInterface>>, res: Response, next: NextFunction) => {
     try {
       const contactsResult = await contactsServices.updateOneContact(req.params.contactId, req.body);
       res.json(contactsResult);

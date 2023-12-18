@@ -1,10 +1,10 @@
 export interface roomsInterface {
+	_id?: string
 	photo: string
 	roomNumber: string
-	id: string
 	bedType: string
 	facilities: string[]
 	price: number
-	offerprice: number
+	offerprice?: number
 	status: string
 }

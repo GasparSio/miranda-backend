@@ -1,5 +1,5 @@
 export interface contactsInterface {
-	id: string
+	_id?: string
 	full_name: string
 	email: string
 	phone_number: string
@@ -7,5 +7,5 @@ export interface contactsInterface {
 	review_body: string
 	date: string
 	dateTime: string
-	isArchived: string
+	status: string
 }

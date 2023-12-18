@@ -9,13 +9,13 @@ import { loginController } from './controllers/loginController';
 import { authMiddleware } from './middleware/authMiddleware';
 import mongoose from 'mongoose';
 
-// const mongoUrl: string = process.env.MONGO_URL || '';
-const ATLAS_SERVER: string = process.env.ATLAS_SERVER || '';
+const DB_URL: string = process.env.DB_URL || '';
+const databaseName: string = process.env.DB_NAME || "";
 
 (async () => {
     try {
-        await mongoose.connect(ATLAS_SERVER, {
-            dbName: 'Miranda_API',
+        await mongoose.connect(DB_URL, {
+            dbName: databaseName,
         })
         console.log('Connected to Mongo')
     } catch (error) {

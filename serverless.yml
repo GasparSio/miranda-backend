@@ -7,7 +7,7 @@ provider:
   region: eu-west-1 
   environment:
     SECRET_KEY: ${file(.env.json):SECRET_KEY}
-    ATLAS_SERVER: ${file(.env.json):ATLAS_SERVER}
+    DB_URL: ${file(.env.json):DB_URL}
     
 functions:
   api:

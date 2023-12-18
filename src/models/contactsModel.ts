@@ -2,7 +2,6 @@ import mongoose from "mongoose";
 import { contactsInterface } from "../interfaces/contactsInterface";
 
 const contactsSchema = new mongoose.Schema<contactsInterface>({
-    "id": String,
 	"full_name": String,
 	"email": String,
 	"phone_number": String,
@@ -10,7 +9,7 @@ const contactsSchema = new mongoose.Schema<contactsInterface>({
 	"review_body": String,
 	"date": String,
 	"dateTime": String,
-	"isArchived": String
+	"status": String
 })
 
 export const Contact = mongoose.model('Contact', contactsSchema);

@@ -2,14 +2,14 @@ import mongoose from "mongoose";
 import { usersInterface } from "../interfaces/usersInterface";
 
 const usersSchema = new mongoose.Schema<usersInterface>({
-    "employee_id": String,
-	"full_name": String,
-	"email": String,
-	"photo": String,
-	"start_date": String,
-	"description": String,
-	"phone_number": String,
-	"status": String,
+    "full_name": { type: String, required: true },
+    "email": { type: String, required: true },
+    "photo": { type: String },
+    "start_date": { type: String, required: true },
+    "description": { type: String, required: true },
+    "phone_number": { type: String, required: true },
+    "password": { type: String, required: true },
+    "status": { type: String },
 })
 
 export const User = mongoose.model('User', usersSchema);

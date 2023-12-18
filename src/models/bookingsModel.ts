@@ -2,7 +2,7 @@ import mongoose from 'mongoose';
 import { bookingsInterface } from '../interfaces/bookingsInterface';
 
 const bookingsSchema = new mongoose.Schema<bookingsInterface>({
-    "id": String,
+	"room_id": String,
 	"guest": String,
 	"phone_number": String,
 	"order_date": String,
