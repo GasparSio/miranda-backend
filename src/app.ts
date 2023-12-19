@@ -15,7 +15,7 @@ const databaseName: string = process.env.DB_NAME || "";
 (async () => {
     try {
         await mongoose.connect(DB_URL, {
-            dbName: databaseName,
+            dbName: 'Miranda_API',
         })
         console.log('Connected to Mongo')
         

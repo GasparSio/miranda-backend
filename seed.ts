@@ -15,7 +15,7 @@ const NUM_ROOMS: number = 40;
 const NUM_BOOKINGS: number = 80;
 // const server: string = (process.argv.includes("atlas") ? process.env.ATLAS_SERVER : process.env.MONGO_URL) || '';
 const DB_URL: string = process.env.DB_URL || "";
-const databaseName: string = process.env.DATABASE || "";
+const databaseName: string = process.env.DB_NAME || "";
 const roomType = ["Double Superior", "Single Room", "Deluxe", "Suite", "Imperial", "Double Room"];
 const roomStatus = ["Available", "Booked"];
 const bookingStatus = ["Check In", "Check Out", "In Progress"];
@@ -24,7 +24,7 @@ const usersStatus = ["Active", "Not Active"];
 async function seedDB(){
     try {
         await mongoose.connect(DB_URL, {
-            dbName: databaseName,
+            dbName: 'Miranda_API',
         })
         console.log('connected');
 
