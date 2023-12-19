@@ -13,11 +13,6 @@ jobs:
       matrix:
         node-version: [18.x]
     steps:
-      - uses: actions/checkout@master
-      - name: Install Dependencies
-        run: npm ci
-      - name: Run build
-        run: npm run build
       - uses: actions/checkout@v3
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v3
@@ -25,6 +20,7 @@ jobs:
           node-version: ${{ matrix.node-version }}
 
       - run: echo '{"SECRET_KEY":"${{secrets.SECRET_KEY}}", "DB_URL":"${{secrets.DB_URL}}"}' > .env.json
+      - run: npm ci
       - name: serverless deploy
         uses: serverless/github-action@v3.2
         with:
