@@ -10,7 +10,7 @@ import { authMiddleware } from './middleware/authMiddleware';
 import mongoose from 'mongoose';
 
 const DB_URL: string = process.env.DB_URL || '';
-const databaseName: string = process.env.DB_NAME || "";
+const databaseName: string = process.env.DATABASE || "";
 
 (async () => {
     try {
