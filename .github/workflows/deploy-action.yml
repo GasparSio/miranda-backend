@@ -19,7 +19,7 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
 
-      - run: echo '{"SECRET_KEY":"${{secrets.SECRET_KEY}}", "DB_URL":"${{secrets.DB_URL}}"}' > .env.json
+      - run: echo '{"SECRET_KEY":"${{secrets.SECRET_KEY}}", "DB_NAME":"${{secrets.DB_NAME}}", "DB_URL":"${{secrets.DB_URL}}"}' > .env.json
       - run: npm ci
       - name: serverless deploy
         uses: serverless/github-action@v3.2

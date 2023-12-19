@@ -4,11 +4,12 @@ frameworkVersion: "3"
 provider:
   name: aws
   runtime: nodejs18.x
-  region: eu-west-1 
+  region: eu-west-1
   environment:
     SECRET_KEY: ${file(.env.json):SECRET_KEY}
     DB_URL: ${file(.env.json):DB_URL}
-    
+    DB_NAME: ${file(.env.json):DB_NAME}
+
 functions:
   api:
     handler: dist/lambda.handler

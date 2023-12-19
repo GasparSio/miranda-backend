@@ -9,13 +9,13 @@ import { loginController } from './controllers/loginController';
 import { authMiddleware } from './middleware/authMiddleware';
 import mongoose from 'mongoose';
 
+
 const DB_URL: string = process.env.DB_URL || '';
 const databaseName: string = process.env.DB_NAME || "";
-
 (async () => {
     try {
         await mongoose.connect(DB_URL, {
-            dbName: 'Miranda_API',
+            dbName: databaseName || 'Miranda_API',
         })
         console.log('Connected to Mongo')
         
