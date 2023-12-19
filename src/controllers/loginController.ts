@@ -7,7 +7,6 @@ loginController.post("/", async (req: Request<{ email: string; password: string 
     try {
         const email = req.body.email;
         const password = req.body.password;
-        console.log(email, password);
         const result = await authService.login(email, password);
         res.json(result);
     } catch (error) {
