@@ -10,7 +10,7 @@ import { authMiddleware } from './middleware/authMiddleware';
 import mongoose from 'mongoose';
 
 const DB_URL: string = process.env.DB_URL || '';
-const databaseName: string = process.env.DATABASE || "";
+const databaseName: string = process.env.DB_NAME || "";
 
 (async () => {
     try {
@@ -18,6 +18,7 @@ const databaseName: string = process.env.DATABASE || "";
             dbName: databaseName,
         })
         console.log('Connected to Mongo')
+        
     } catch (error) {
         throw new Error(`${error}`)
      }
